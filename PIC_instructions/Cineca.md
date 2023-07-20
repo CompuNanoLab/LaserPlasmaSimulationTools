@@ -2,9 +2,8 @@
 * general: https://wiki.u-gov.it/confluence/display/SCAIUS/HPC+at+CINECA%3A+User+Documentation 
 * Galileo100: https://wiki.u-gov.it/confluence/display/SCAIUS/UG3.3%3A+GALILEO100+UserGuide
 * Marconi100: https://wiki.u-gov.it/confluence/display/SCAIUS/UG3.2%3A+MARCONI100+UserGuide
+* Leonardo: https://wiki.u-gov.it/confluence/display/SCAIUS/UG3.4%3A+Leonardo+UserGuide
 * SLURM scheduler: https://slurm.schedmd.com/documentation.html
-
-(and soon the new supercomputer Leonardo...)
 
 # Software
 you can load (e.g. set your environment variables appropriately) via the module command 
