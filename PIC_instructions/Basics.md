@@ -15,7 +15,7 @@ to run efficiently in parallel on your machine you need to know your architectur
 for example, you can find out the number of threads per core and cores per socket of your machine with the command `lscpu`
 
 # Cineca
-you must have a cineca account
+you must have a cineca account and two-factor authentication (2FA) enabled (https://wiki.u-gov.it/confluence/display/SCAIUS/How+to+connect+via+2FA)
 
 to access Galileo100:
 ```bash
@@ -25,12 +25,17 @@ similar for Marconi100
 ```bash
 ssh <username>@login.m100.cineca.it
 ```
+and Leonardo
+```bash
+ssh <username>@login.leonardo.cineca.it
+```
+
 then follow the related instructions 
 
 # Git 
 there's plenty of tutorials online, please consider this as just a summary/reminder of the main git commands 
 
-if you want to contribute to the `pic_tests` repo, first fork it in your github account, then clone it 
+if you want to contribute to the `pic_tests` repo, first fork it in your GitHub account, then clone it 
 ```bash
 git clone https://github.com/<your_git_username>/pic_tests
 ```
