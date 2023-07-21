@@ -142,6 +142,23 @@ export PYTHONEXE=python3
 export HDF5_ROOT_DIR=/cineca/prod/opt/libraries/hdf5/1.10.7/intelmpi--oneapi-2021--binary/
 export SMILEICXX=mpiicpc
 ```
+versione che usiamo ora 
+
+```bash
+module purge
+module load profile/global
+module load anaconda3/2020.07--gcc--8.3.1
+module load intel/oneapi-2021--binary
+module load intelmpi/oneapi-2021--binary
+module load libszip/2.1.1--gcc--10.2.0
+module load zlib/1.2.11--gcc--10.2.0
+module load hdf5/1.10.7--intelmpi--oneapi-2021--binary
+module load boost/1.76.0--intelmpi--oneapi-2021--binary
+export SMILEICXX=mpiicpc
+export HDF5_ROOT=/cineca/prod/opt/libraries/hdf5/1.10.7/intelmpi--oneapi-2021--binary
+export BOOST_ROOT=/cineca/prod/opt/libraries/boost/1.76.0/intelmpi--oneapi-2021--binary/
+export CXXFLAGS="-xCOMMON-AVX512 -ip -inline-factor=1000 -D__INTEL_CASCADELAKE_6248 -qopt-zmm-usage=high -fno-alias"
+```
 
 and source it
 ```bash
@@ -177,7 +194,6 @@ here is an example of what `job.sh` could contain if you want to run on the seri
 #SBATCH --err=smilei.err
 #SBATCH --out=smilei.out
 #SBATCH --account=pMI21_EneDa_1
-#SBATCH --qos=noQOS
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=mymail@mymail.com
 
@@ -188,7 +204,7 @@ source $HOME/smilei.profile
 export OMP_SCHEDULE=dynamic
 export OMP_NUM_THREADS=1
 
-srun --cpu-bind=cores -m block:block $HOME/smilei/smilei input.py > output.txt
+srun --cpus-per-task $OMP_NUM_THREADS --cpu-bind=cores -m block:block $HOME/smilei/smilei input.py > output.txt
 ```
 
 here is an example of what `job.sh` could contain if you want to run on the serial partition on 4 cores with 1 MPI task and 4 OMP thread per core  
@@ -215,7 +231,7 @@ source $HOME/smilei.profile
 export OMP_SCHEDULE=dynamic
 export OMP_NUM_THREADS=4
 
-srun --cpu-bind=cores -m block:block $HOME/smilei/smilei input.py > output.txt
+srun --cpus-per-task $OMP_NUM_THREADS --cpu-bind=cores -m block:block $HOME/smilei/smilei input.py > output.txt
 ```
 
 
