@@ -29,5 +29,5 @@ warpx.1*
 *.pmd
 warpx_used_inputs
 Backtrace*
-
+**/.DS_Store
 
