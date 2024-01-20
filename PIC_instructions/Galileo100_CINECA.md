@@ -174,6 +174,11 @@ compile
 ```bash
 make -j 8
 ```
+now we use 
+```bash
+make -j 16 config=omptasks
+```
+
 if successful, you'll find the executable `smilei` in the current directory 
 another executable `smilei_test` is generated to be run in test mode (e.g. check that the input file is ok)
 
