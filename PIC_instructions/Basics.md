@@ -1,13 +1,34 @@
 # Goal of these instructions
-The aim is to help one build and run 3 particle-in-cell codes (WarpX, Smilei and EPOCH) on a laptop with Linux or on Cineca supercomputers.
+The aim is to help one build and run 3 particle-in-cell codes (WarpX, Smilei and EPOCH) on a laptop or on Cineca supercomputers.
 
 # Laptop
 ## General dependencies
 First, install on your laptop the following fundamental software:
+
+For Debian-based OS:
 ```bash
 sudo apt-get install git python3-h5py python3-ipython python3-pint python3-sphinx python3-matplotlib python3-dev python3-numpy python3-scipy python3-pip build-essential gcc libhdf5-openmpi-dev 
 ```
-then, follow the related instructions for each case.
+
+For MacOS first install Homebrew via:
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+Once installed, to use Homebrew on the command line it is necessary to modify the ".zprofile" on your home by running following commands:
+```bash
+(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/<your_account>/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)""
+```
+Then install git and Python using Homebrew:
+```bash
+brew install git python 
+```
+To use the installed Python as the default one you will need to modify the ".zprofile" adding the following line:
+```bash
+export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
+```
+the path may change, use the one shown at the end of the installation.
+Then, follow the related instructions for each case.
 
 To run efficiently in parallel on your machine you need to know your architecture.
 For example, you can find out the number of threads per core and cores per socket on your machine with the command: `lscpu`
