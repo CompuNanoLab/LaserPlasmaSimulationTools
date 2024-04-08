@@ -27,7 +27,20 @@ To use the installed Python as the default one you will need to modify the ".zpr
 ```bash
 export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
 ```
-the path may change, use the one shown at the end of the installation.
+the path may change, use the one shown at the end of the installation. Once Python has been installed on your Laptop you have to create a virtual environment on your home to be able to install the python packages via pip:
+
+``` Bash
+python3 -m venv myenv
+```
+then, if you want to, let the terminal source it automatically every time you open a new terminal by adding to your ".zshrc" file the following line:
+
+```
+source myenv/bin/activate
+```
+Alternatively, use the same line directly on the command line of your terminal. Source the environment and install the packages via pip:
+```
+pip install h5py ipython pint sphinx matplotlib dev numpy scipy 
+```
 Then, follow the related instructions for each case.
 
 To run efficiently in parallel on your machine you need to know your architecture.
