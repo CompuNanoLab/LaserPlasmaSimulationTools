@@ -191,19 +191,14 @@ note that doing `spack install` within an environment does not re-install the so
 
 # MacOS
 
-The easiest way to install the necessary dependencies is by using alternatively **Homebrew** and **pip**.
-
-Once Python has been installed on your Laptop you have to create a virtual environment on your home to be able to install the python packages via pip:
-
-``` Bash
-python3 -m venv myenv
-```
-then, if you want to, let the terminal source it automatically every time you open a new terminal by adding to your ".zshrc" file the following line:
+The easiest way to install the necessary dependencies is by using alternatively **Homebrew** (check Basics.md for steps to install Homebrew on your Mac).
 
 ```
-source myenv/bin/activate
+brew install openmpi
+brew install hdf5-mpi
+brew install libomp
+``` 
+Also, in order to download via *git* the source of codes it could be useful to install it:
 ```
-Alternatively, use the same line directly on the command line of your terminal. Source the environment and install the packages via pip:
-```
-pip install 
-```
+brew install git
+``` 
