@@ -5,12 +5,12 @@ The aim is to help one build and run 3 particle-in-cell codes (WarpX, Smilei and
 ## General dependencies
 First, install on your laptop the following fundamental software:
 
-For Debian-based OS:
+For **Debian-based OS**:
 ```bash
 sudo apt-get install git python3-h5py python3-ipython python3-pint python3-sphinx python3-matplotlib python3-dev python3-numpy python3-scipy python3-pip build-essential gcc libhdf5-openmpi-dev 
 ```
 
-For MacOS first install Homebrew via:
+For **MacOS** first install Homebrew via:
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
