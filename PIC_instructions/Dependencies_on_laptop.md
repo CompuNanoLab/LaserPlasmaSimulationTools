@@ -1,9 +1,11 @@
+# Linux
+
 You can choose to install the main dependencies 
 * from source
 * via the package manager of your system
 * using Spack (another package management tool) 
 
-# Via apt or source 
+## Via apt or source 
 on a Debian or Ubuntu machine install the following software 
 ```
 sudo apt-get install git python3-h5py python3-ipython python3-pint python3-sphinx python3-matplotlib python3-dev python3-numpy python3-pip build-essential gcc libhdf5-openmpi-dev
@@ -12,7 +14,7 @@ sudo apt-get install git python3-h5py python3-ipython python3-pint python3-sphin
 you may need to install openmpi and/or hdf5 from source 
 to do that, folllow these instructions: https://smileipic.github.io/Smilei/Use/install_linux.html#troubleshooting
 
-# Spack
+## Spack
 ### What
 software to install other software that is useful because 
 *  works on different platforms and environments like Linux machines, macOS and HPC systems (and Windows is work in progress)
@@ -185,3 +187,23 @@ spack install openmpi %gcc@10.2.1
 ``` 
 
 note that doing `spack install` within an environment does not re-install the software from the beginning, it associates a specific install to your environment 
+
+
+# MacOS
+
+The easiest way to install the necessary dependencies is by using alternatively **Homebrew** and **pip**.
+
+Once Python has been installed on your Laptop you have to create a virtual environment on your home to be able to install the python packages via pip:
+
+``` Bash
+python3 -m venv myenv
+```
+then, if you want to, let the terminal source it automatically every time you open a new terminal by adding to your ".zshrc" file the following line:
+
+```
+source myenv/bin/activate
+```
+Alternatively, use the same line directly on the command line of your terminal. Source the environment and install the packages via pip:
+```
+pip install 
+```
