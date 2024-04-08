@@ -31,7 +31,7 @@ the path may change, use the one shown at the end of the installation.
 Then, follow the related instructions for each case.
 
 To run efficiently in parallel on your machine you need to know your architecture.
-For example, you can find out the number of threads per core and cores per socket on your machine with the command: `lscpu`
+For example, you can find out the number of threads per core and cores per socket on your machine with the command: `lscpu` (Linux) or `sysctl -a | grep machdep.cpu` (MacOS).
 
 # Cineca
 You must have a Cineca account and two-factor authentication (2FA) enabled (https://wiki.u-gov.it/confluence/display/SCAIUS/How+to+connect+via+2FA).
