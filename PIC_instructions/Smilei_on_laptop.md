@@ -56,25 +56,43 @@ import happi
 ```
 
 # Build on Mac
+
+Firstly you need to install Homebrew (check Basics.md). Then you could either follow the steps on:
+
 https://smileipic.github.io/Smilei/Use/install_macos.html#brew-install-smilei
 
-install homebrew 
-```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-install dependencies 
+Either installing the dependencies as shown here:
 ```
 brew install iltommi/brews/smilei --HEAD --only-dependencies
 ```
+Or following the commands on *Dependencies_on_laptop.md* (this second one might be preferred even though little more tedious).
 
-update profile `~/bash_profile` or `~/zprofile` (you may need to change the `g++-11` to some other version you have on your laptop)
+Then, update the profile `~/.zprofile` (or `~/.bash_profile` in some older versions of MacOS):
 ```
-export OMPI_CXX=g++-11
-export HDF5_ROOT_DIR=`brew --prefix`/opt/hdf5-parallel
+cd
+nano .zprofile
+```
+and add the following lines:
+```
+export OMPI_CXX=g++-13
+export HDF5_ROOT_DIR=/opt/homebrew/opt/hdf5-mpi
 export PYTHONEXE=python3
 ```
+You may need to change the `g++-13` to some other version you have on your laptop. To check the version use the `brew info gcc` command, do not forget the number of the version: by using in fact `g++` only, you will call `clang++` compiler which is provided by Apple. Such a compiler does not work with `openmpi` that is necessary for Smilei compilation instead.
 
+Use then `git` to copy Smilei on your home:
+```
+git clone https://github.com/SmileiPIC/Smilei.git smilei
+```
+move in the folder and use `make` to copile the source (remind to activate the python environment):
+```
+cd smilei
+make -j 8
+```
+To use the post-processing tools offered by Smilei, once you have compiled the source:
+```
+make happi
+```
 
 # Run 
 copy the executable (smilei) and an input file (input.py) in a directory (mydir) and move there 
