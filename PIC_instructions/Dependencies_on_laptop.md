@@ -198,7 +198,11 @@ brew install openmpi
 brew install hdf5-mpi
 brew install libomp
 ``` 
-Also, in order to download via *git* the source of codes it could be useful to install it:
+To check the formulae (dependencies) installed on your Mac use the command
 ```
-brew install git
+brew list
+```
+To check the version of your C++ compiler use the command:
+```
+brew info gcc
 ``` 
