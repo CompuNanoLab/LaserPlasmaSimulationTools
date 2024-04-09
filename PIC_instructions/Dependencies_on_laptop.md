@@ -191,13 +191,23 @@ note that doing `spack install` within an environment does not re-install the so
 
 # MacOS
 
-The easiest way to install the necessary dependencies is by using alternatively **Homebrew** (check Basics.md for steps to install Homebrew on your Mac).
-
+The easiest way to install the necessary dependencies is by using alternatively **Homebrew** (check Basics.md for previous steps needed to install Homebrew and Python on your Mac).
 ```
+brew update
 brew install openmpi
 brew install hdf5-mpi
 brew install libomp
-``` 
+brew install adios2
+brew install ccache
+brew install cmake
+brew install fftw
+brew install pkg-config
+brew install openblas
+```
+The dependencies will install also *numpy*, which you should have already installed when creating the virtual environment for Python. You'd rather uninstall it by using:
+```
+brew uninstall --ignore-dependencies numpy
+```
 To check the formulae (dependencies) installed on your Mac use the command
 ```
 brew list
