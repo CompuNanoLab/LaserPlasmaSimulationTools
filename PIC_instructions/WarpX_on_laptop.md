@@ -51,7 +51,7 @@ export CXX=$(which clang++)
 brew unlink gcc
 brew link --force libomp
 ```
-this latter process might create some error in the future, so at the end of the compiling remind to unling libomp with the following commands:
+this latter process might create some error in the future, so at the end of the compiling remind to unlink *libomp* with the following commands:
 ```
 brew unlink libomp
 brew link gcc
