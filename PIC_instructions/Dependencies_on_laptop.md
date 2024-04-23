@@ -204,10 +204,6 @@ brew install fftw
 brew install pkg-config
 brew install openblas
 ```
-The dependencies will install also *numpy*, which you should have already installed when creating the virtual environment for Python. You'd rather uninstall it by using:
-```
-brew uninstall --ignore-dependencies numpy
-```
 To check the formulae (dependencies) installed on your Mac use the command
 ```
 brew list
