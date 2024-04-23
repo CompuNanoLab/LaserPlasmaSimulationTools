@@ -21,7 +21,8 @@ eval "$(/opt/homebrew/bin/brew shellenv)""
 ```
 Then install git and Python using Homebrew:
 ```bash
-brew install git python 
+brew install git python
+brew install numpy scipy 
 ```
 To use the installed Python as the default one you will need to modify the ".zprofile" adding the following line:
 ```bash
