@@ -10,7 +10,11 @@ For **Debian-based OS**:
 sudo apt-get install git python3-h5py python3-ipython python3-pint python3-sphinx python3-matplotlib python3-dev python3-numpy python3-scipy python3-pip build-essential gcc libhdf5-openmpi-dev 
 ```
 
-For **MacOS** first install Homebrew via:
+For **MacOS** first install `xcode-select` by:
+```bash
+xcode-select --install
+```
+and then Homebrew via:
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
@@ -36,7 +40,7 @@ python3 -m venv myenv
 then, if you want to, let the terminal source it automatically every time you open a new terminal by adding to your ".zshrc" file the following line:
 
 ```
-source myenv/bin/activate
+source ~/myenv/bin/activate
 ```
 Alternatively, use the same line directly on the command line of your terminal. Source the environment and install the packages via pip:
 ```
