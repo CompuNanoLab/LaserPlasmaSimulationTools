@@ -1,0 +1,1 @@
+FLASH is a radiative hydrodynamics code which can be used to simulate the effects of the prepulse of a laser onto targets. In the following the instructions to compile the LaserSlab example will be given
