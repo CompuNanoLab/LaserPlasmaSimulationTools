@@ -18,7 +18,7 @@ move then inside `hypre` folder and type `./configure`. After that move into `sr
 
 You are ready now to compile FLASH. Move into `FLASH4.8` folder and prepare the configuration for the LaserSlab simulation, a cylindrical coordinate simulation of a hypergaussian laser interacting with a seminfinite slab (for more info see page 549 of FLASH manual) by using:
 ```
-./setup -auto LaserSlab -2d +cylindrical +pm4dev --nxb=16 --nxb=16 +hdf5typeio +parallelIO species=cham,targ +mtmmmt +laser +uhd3t +mgd mgd_meshgroups=6 -parfile=example.par
+./setup -auto LaserSlab -2d +cylindrical +pm4dev --nxb=16 --nyb=16 +hdf5typeio +parallelIO species=cham,targ +mtmmmt +laser +uhd3t +mgd mgd_meshgroups=6 -parfile=example.par
 ```
 Setup script will prepare a the `Makefile` of your simulation inside the `object` folder, so move inside this folder. `Makefile.h` must be modified as follows to make it working for Galileo100. The first lines shows the paths to the needed libraries to be used:
 ```bash
