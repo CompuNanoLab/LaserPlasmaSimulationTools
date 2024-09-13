@@ -1,4 +1,10 @@
-FLASH is a radiative hydrodynamics code which can be used to simulate the effects of the prepulse of a laser onto targets. In the following the instructions to compile the LaserSlab example will be given. First of all it is necessary to create a profile with the necessary dependencies to run the simulations. Create in the `$HOME` a `flash.profile` as follows:
+# FLASH Instructions on GALILEO100
+
+[**FLASH**](https://flash.rochester.edu/site/) is a radiative hydrodynamics code that can be used to simulate the effects of the prepulse of a laser onto targets. In the following, the instructions to compile the LaserSlab example will be given. 
+
+## Install Dependencies
+
+First of all, it is necessary to create a profile with the necessary dependencies to run the simulations. Create in the `$HOME` a `flash.profile` as follows:
 ```bash
 module purge
 module load profile/archive
@@ -8,13 +14,15 @@ module load parallel-netcdf/1.12.2--openmpi--4.1.1--gcc--10.2.0-pmi
 module load netlib-lapack/3.9.1--gcc--10.2.0
 module load python/3.11.7--gcc--10.2.0
 ```
-Then, it will be necessary to install `hypre`, a library used by FORTRAN to efficiently compute algebraic operations. To do so:
+Then, it is necessary to install `hypre`, a library used by FORTRAN to efficiently compute algebraic operations. To do so:
 ```bash
 cd $HOME
 source flash.profile
 git clone https://github.com/hypre-space/hypre
 ```
-move then inside `hypre` folder and type `./configure`. After that move into `src` and type `make -j 8` to install the libraries. 
+Move then inside `hypre/src` folder and type `./configure`. After that type `make -j 8` to install the libraries. 
+
+## Compiling
 
 You are ready now to compile FLASH. Move into `FLASH4.8` folder and prepare the configuration for the LaserSlab simulation, a cylindrical coordinate simulation of a hypergaussian laser interacting with a seminfinite slab (for more info see page 549 of FLASH manual) by using:
 ```
