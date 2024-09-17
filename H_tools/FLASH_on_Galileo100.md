@@ -96,7 +96,15 @@ Lastly, for old compilers FLASH provided a fake `iso_c_bindings.mod` file. For n
 #       touch $@
 #endif
 ```
-You are now able to compile by typing `make -j 8` inside object folder. From now on each Makefile will be created with the right folders for the machine, you don't need to repeat then the operation for each compilation. To run the simulation, move then to `$CINECA_SCRATCH` and
+Re-run the command:
+```
+./setup -auto LaserSlab -2d +cylindrical +pm4dev --nxb=16 --nyb=16 +hdf5typeio +parallelIO species=cham,targ +mtmmmt +laser +uhd3t +mgd mgd_meshgroups=6 -parfile=example.par
+```
+You are now able to compile by typing `make -j 8` inside object folder. From now on the changed Makefile will be used by default for every new compilation. 
+
+## Running 
+
+To run the simulation, move then to `$CINECA_SCRATCH` and
 ```bash
 cp -rL $HOME/FLASH4.8/object/* .
 ```
