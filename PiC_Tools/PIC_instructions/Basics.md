@@ -2,6 +2,17 @@
 ## General dependencies
 This file contains the instructions to install general dependencies in your laptop based on your Operative System.
 
+### Windows
+In order to use most of the Laser-Plasma simulation tools in Windows, you must set up a running Linux platform:
+
+- Go to Start. Search for "Turn Windows features on or off."
+- Check the option Windows Subsystem for Linux.
+- Open Command Prompt as an administrator.
+- Run the command below to install the *Distro* (e.g. Ubuntu, Debian, ...) of your choice:
+- Launch the *Distro* by searching from the start menu and insert a username and password. Remember that when you launch the virtual machine you are opening a terminal in the ```$HOME``` of your Linux platform.
+
+You can access the files of your virtual machine by opening the Windows File Explorer and looking for the Linux folder. Inside the folder with the name of your Distro you can find your ```home``` directory.
+
 ### Debian-based OS:
 To install the dependencies on your Debian-based laptop you must use the native Linux **apt-get** package manager. You can run the following command on the terminal to install the needed dependencies:
 
