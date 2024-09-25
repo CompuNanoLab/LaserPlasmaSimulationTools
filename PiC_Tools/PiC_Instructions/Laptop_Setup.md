@@ -1,20 +1,20 @@
 # Laptop
-## General dependencies
-This file contains the instructions to install general dependencies, useful for all simulation codes, in your laptop based on your Operative System.
 
-### Windows
-In order to use most of the Laser-Plasma simulation tools in Windows, you must set up a running Linux platform:
+In order to use most of the Laser-Plasma simulation tools you need a Unix machine (Linux or MacOS). Follow the instructions below for your OS.
 
-- Go to Start. Search for "Turn Windows features on or off."
-- Check the option Windows Subsystem for Linux:
+## Setup a Linux sub-system in Windows
+In Windows, you must set up a running Linux sub-system:
+
+- Go to Start. Search for "Turn Windows features on or off." (For laptops set up in Italian look for "Attiva o disattiva funzionalità di Windows")
+- Check the option "Windows Subsystem for Linux" ("Sottosistema Windows per Linux"):
   
   <img src="/PiC_Tools/Images/322772146-75fe59a8-35c6-47c9-9b3e-fef7ff2c0fad.png" width="400" />
   
-- Open Command Prompt as an administrator:
+- Open **Command Prompt** (**Prompt dei Comandi**) as an administrator:
   
   <img src="/PiC_Tools/Images/322772777-96052034-10c0-417a-90dc-71180df4704d.png" width="400" />
   
-- Run the command below to install the *Distro* (e.g. Ubuntu, Debian, ...; suggested ones: Debian or Ubuntu) of your choice:
+- Run the command below to install the *Distro* (suggested ones: *Debian* or *Ubuntu*) of your choice:
   ```
   wsl --install -d <Distro>
   ```
@@ -22,17 +22,60 @@ In order to use most of the Laser-Plasma simulation tools in Windows, you must s
   
   <img src="/PiC_Tools/Images/327967584-fb762f06-3d6b-4ddc-b090-e2569d73d3fa.png" width="400" />
 
-You can access the files of your virtual machine by opening the Windows File Explorer and looking for the Linux folder. Inside the folder with the name of your Distro you can find your ```home``` directory.
+You can access the files of your virtual machine by opening the **Windows File Explorer** (**Esplora File**) and looking for the Linux folder (i.e. the penguin folder). Inside the folder with the name of your Distro you can find your ```home``` directory.
 
 <img src="/PiC_Tools/Images/327968742-3278d5b3-cbc6-43a3-959e-78b11d40ac9a.png" width="600" />
 
 Follow then the instructions for the *Distro* that you chose.
 
-### Debian-based (Ubuntu) OS:
+## Before starting
+
+Here is a list of basic useful commands that you can use in a Unix terminal:
+
+```
+    cat --- for creating and displaying short files
+    chmod --- change permissions
+    cd --- change directory
+    clear --- clear screen
+    cp --- for copying files
+    diff --- compares files
+    echo --- echo argument
+    grep --- search file
+    head --- display first part of file
+    history --- show history of previous commands
+    ls --- see what files you have
+    less --- use to read files (q to exit)
+    man --- view manual pages for Unix commands
+    more --- use to read files
+    mkdir --- create directory
+    mv --- for moving and renaming files
+    pwd --- find out what directory you are in
+    rm --- remove a file
+    rmdir --- remove directory
+    setenv --- set an environment variable
+    sort --- sort file
+    tail --- display last part of file
+    tar --- create an archive, add or extract files
+    wc --- count characters, words, lines
+    who --- tells you who's logged on
+
+```
+
+To edit files you can use a command-line editor like `nano`. To open a file using `nano`, open your terminal and type the following command:
+
+```bash
+nano text.txt
+```
+Then, you can move with arrow keys and edit the file as you want. Use **Ctrl + O + enter** to save changes to the fileand **Ctrl + X** to exit. Other available editors are `vi` and `emacs`.
+
+## General dependencies
+This section contains the instructions to install general dependencies in your laptop based on your OS. These dependencies are required by all Laser-Plasma tools.
+
+### Debian-based (Ubuntu) OS
 To install the dependencies on your Debian-based laptop you must use the native Linux **apt-get** package manager. You can run the following command on the terminal to install the needed dependencies:
 ```
 sudo apt-get update
-sudo apt-get install git python3-h5py python3-ipython python3-pint python3-sphinx python3-matplotlib python3-dev python3-numpy python3-scipy python3-pip build-essential gcc libhdf5-openmpi-dev 
+sudo apt-get install git python3-h5py python3-dev python3-numpy python3-scipy build-essential gcc libhdf5-openmpi-dev 
 ```
 Open, then, your ``.bashrc`` or ``.bash_profile`` file in your $HOME. For example, if you want to use the nano editor, type in the terminal:
 ```
@@ -51,11 +94,12 @@ Source the new bash profile by launching the following command on the terminal:
 ```
 source $HOME/.bashrc
 ```
+Follow then the istructions in **For all Distros** section.
 
 ### Fedora OS
 To install the dependencies on your Fedora-based laptop you must use the native Linux **dnf** package manager. You can run the following command on the terminal to install the needed dependencies:
 ```
-sudo dnf install gcc-c++ git hdf5-openmpi hdf5-openmpi-devel openmpi-devel python python-devel python3-h5py ipython python3-pint python3-sphinx python3-matplotlib 
+sudo dnf install gcc-c++ git hdf5-openmpi hdf5-openmpi-devel openmpi-devel python python-devel python-numpy python-scipy
 ```
 Open your ``.bashrc`` or ``.bash_profile`` file in your $HOME. For example, if you want to use the nano editor, type in the terminal:
 ```
@@ -66,27 +110,24 @@ Add the following lines at the end of the file:
 module load mpi
 export HDF5_ROOT_DIR=/usr/lib64/openmpi/
 ```
-If you'd like to use Python by using the shortcut ```python``` add also:
-```
-alias python=python3
-```
 Source the new bash profile by launching the following command on the terminal:
 ```
 source $HOME/.bashrc
 ```
+Follow then the istructions in **For all Distros** section.
 
 ### ArchLinux OS
 To install the dependencies on your ArchLinux-based laptop you must use the native Linux **pacman** package manager. You can run the following command on the terminal to install the needed dependencies:
-
 ```
-sudo pacman -S git hdf5-openmpi python-numpy python-sphinx python-h5py-openmpi python-matplotlib python-pint make gcc 
+sudo pacman -S git hdf5-openmpi python-numpy python-scipy make gcc 
 ```
-Follow then the istructions in **For all Distros** section
+Follow then the istructions in **For all Distros** section.
 
 ### For all Distros
-Create then a `python` virtual environment by running:
+Create then a `python` virtual environment in your `$HOME` by running:
 ``` Bash
-python3 -m venv myenv
+cd 
+python -m venv myenv
 ```
 then, source it to activate the virtual environment. In Linux:
 
@@ -101,12 +142,17 @@ and install the needed packages via pip:
 ``` Bash
 pip3 install h5py ipython pint sphinx matplotlib dev numpy scipy 
 ```
-Any time you need to activate the environment you must launch in the terminal the source prompt. If you want to deactivate the virtual environment you'll need only to run the command:
+If you want to, let the terminal source the environment automatically every time you open a new terminal by adding to your ".bashrc" file the following line:
+
+``` Bash
+source ~/myenv/bin/activate
+```
+Otherwise, any time you want to use `python` activate the environment by launching in the terminal the source prompt. If you want to deactivate the virtual environment you'll need to run the command:
 ``` Bash
 deactivate 
 ```
 
-If you encounter problems with openmpi and/or hdf5 directly, you may need to install them from source. To do that, try to follow the instructions [here](https://smileipic.github.io/Smilei/Use/install_linux.html#troubleshooting).
+If you encounter problems with openmpi and/or hdf5, you may need to install them from source. To do that, try to follow the instructions [here](https://smileipic.github.io/Smilei/Use/install_linux.html#troubleshooting).
 
 ### MacOS 
 
@@ -118,7 +164,7 @@ and then Homebrew via:
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
-Once installed, to use Homebrew on the command line it is necessary to modify the ".zprofile" on your home by running following commands:
+Once installed, to use Homebrew on the command line you need to modify the ".zprofile" on your home by running following commands:
 ```bash
 (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/<your_account>/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)""
@@ -140,13 +186,13 @@ To check the version of your C++ compiler use the command:
 ```
 brew info gcc
 ``` 
-To use the installed Python as the default one you will need to modify the ".zprofile" adding the following line:
+To use the installed Python as the default one you will need to modify the ".zprofile" adding the following line (you can use `nano` editor to do that):
 ```bash
 export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
 ```
 the path may change, use the one shown at the end of the installation. Once Python has been installed on your Laptop you have to create a virtual environment on your home to be able to install the python packages via pip:
 
-``` Bash
+``` bash
 python3 -m venv myenv
 ```
 then, if you want to, let the terminal source it automatically every time you open a new terminal by adding to your ".zshrc" file the following line:
