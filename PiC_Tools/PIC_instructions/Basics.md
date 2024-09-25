@@ -1,16 +1,16 @@
-# Goal of these instructions
-The aim is to help one build and run 3 particle-in-cell codes (WarpX, Smilei and EPOCH) on a laptop or on Cineca supercomputers.
-
 # Laptop
 ## General dependencies
-First, install on your laptop the following fundamental software:
+This file contains the instructions to install general dependencies in your laptop based on your Operative System.
 
-For **Debian-based OS**:
+### Debian-based OS:
+To install the dependencies on your Debian-based laptop you must use the native Linux **apt-get** package manager. You can run the following command on the terminal to install the needed dependencies:
+
 ```bash
 sudo apt-get install git python3-h5py python3-ipython python3-pint python3-sphinx python3-matplotlib python3-dev python3-numpy python3-scipy python3-pip build-essential gcc libhdf5-openmpi-dev 
 ```
 
-For **MacOS** first install `xcode-select` by:
+### MacOS 
+First install `xcode-select` by launching the following command on the terminal:
 ```bash
 xcode-select --install
 ```
