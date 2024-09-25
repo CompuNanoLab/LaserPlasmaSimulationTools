@@ -26,12 +26,64 @@ You can access the files of your virtual machine by opening the Windows File Exp
 
 <img src="/PiC_Tools/Images/327968742-3278d5b3-cbc6-43a3-959e-78b11d40ac9a.png" width="600" />
 
-### Debian-based OS:
-To install the dependencies on your Debian-based laptop you must use the native Linux **apt-get** package manager. You can run the following command on the terminal to install the needed dependencies:
+Follow then the instructions for the *Distro* that you chose.
 
-```bash
+### Debian-based (Ubuntu) OS:
+To install the dependencies on your Debian-based laptop you must use the native Linux **apt-get** package manager. You can run the following command on the terminal to install the needed dependencies:
+```
+sudo apt-get update
 sudo apt-get install git python3-h5py python3-ipython python3-pint python3-sphinx python3-matplotlib python3-dev python3-numpy python3-scipy python3-pip build-essential gcc libhdf5-openmpi-dev 
 ```
+Open, then, your ``.bashrc`` or ``.bash_profile`` file in your $HOME. For example, if you want to use the nano editor, type in the terminal:
+```
+nano $HOME/.bashrc
+```
+Add the following lines at the end of the file:
+```
+export PYTHONEXE=python3
+export HDF5_ROOT_DIR=/usr/lib/x86_64-linux-gnu/hdf5/openmpi
+```
+If you'd like to use Python by using the shortcut ```python``` add also:
+```
+alias python=python3
+```
+Source the new bash profile by launching the following command on the terminal:
+```
+source $HOME/.bashrc
+```
+
+###Fedora OS
+To install the dependencies on your Fedora-based laptop you must use the native Linux **dnf** package manager. You can run the following command on the terminal to install the needed dependencies:
+```
+sudo dnf install gcc-c++ git hdf5-openmpi hdf5-openmpi-devel openmpi-devel python python-devel python3-h5py ipython python3-pint python3-sphinx python3-matplotlib 
+```
+Open your ``.bashrc`` or ``.bash_profile`` file in your $HOME. For example, if you want to use the nano editor, type in the terminal:
+```
+nano $HOME/.bashrc
+```
+Add the following lines at the end of the file:
+```
+module load mpi
+export HDF5_ROOT_DIR=/usr/lib64/openmpi/
+```
+If you'd like to use Python by using the shortcut ```python``` add also:
+```
+alias python=python3
+```
+Source the new bash profile by launching the following command on the terminal:
+```
+source $HOME/.bashrc
+```
+
+### ArchLinux OS
+To install the dependencies on your ArchLinux-based laptop you must use the native Linux **pacman** package manager. You can run the following command on the terminal to install the needed dependencies:
+
+```
+sudo pacman -S git hdf5-openmpi python-numpy python-sphinx python-h5py-openmpi python-matplotlib python-pint make gcc 
+```
+
+### For all Distros
+If you encounter problems, you may need to install openmpi and/or hdf5 directly from source. To do that, try to follow the instructions [here](https://smileipic.github.io/Smilei/Use/install_linux.html#troubleshooting).
 
 ### MacOS 
 First install `xcode-select` by launching the following command on the terminal:
