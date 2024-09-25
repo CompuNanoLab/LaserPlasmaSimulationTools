@@ -8,11 +8,11 @@ In order to use most of the Laser-Plasma simulation tools in Windows, you must s
 - Go to Start. Search for "Turn Windows features on or off."
 - Check the option Windows Subsystem for Linux:
   
-  <img src="https://github.com/CompuNanoLab/LaserPlasmaSimulationTools/PiC_Tools/Images/322772146-75fe59a8-35c6-47c9-9b3e-fef7ff2c0fad.png" width="400" />
+  <img src="/PiC_Tools/Images/322772146-75fe59a8-35c6-47c9-9b3e-fef7ff2c0fad.png" width="400" />
   
 - Open Command Prompt as an administrator:
   
-  <img src="https://github.com/CompuNanoLab/LaserPlasmaSimulationTools/PiC_Tools/Images/322772777-96052034-10c0-417a-90dc-71180df4704d.png" width="400" />
+  <img src="/PiC_Tools/Images/322772777-96052034-10c0-417a-90dc-71180df4704d.png" width="400" />
   
 - Run the command below to install the *Distro* (e.g. Ubuntu, Debian, ...; suggested ones: Debian or Ubuntu) of your choice:
   ```
@@ -20,11 +20,11 @@ In order to use most of the Laser-Plasma simulation tools in Windows, you must s
   ```
 - Launch the *Distro* by searching from the start menu and insert a username and password. Remember that when you launch the virtual machine you are opening a terminal in the ```$HOME``` of your Linux platform.
   
-  <img src="https://github.com/CompuNanoLab/LaserPlasmaSimulationTools/PiC_Tools/Images/327967584-fb762f06-3d6b-4ddc-b090-e2569d73d3fa.png" width="400" />
+  <img src="/PiC_Tools/Images/327967584-fb762f06-3d6b-4ddc-b090-e2569d73d3fa.png" width="400" />
 
 You can access the files of your virtual machine by opening the Windows File Explorer and looking for the Linux folder. Inside the folder with the name of your Distro you can find your ```home``` directory.
 
-<img src="https://github.com/CompuNanoLab/LaserPlasmaSimulationTools/PiC_Tools/Images/327968742-3278d5b3-cbc6-43a3-959e-78b11d40ac9a.png" width="600" />
+<img src="/PiC_Tools/Images/327968742-3278d5b3-cbc6-43a3-959e-78b11d40ac9a.png" width="600" />
 
 ### Debian-based OS:
 To install the dependencies on your Debian-based laptop you must use the native Linux **apt-get** package manager. You can run the following command on the terminal to install the needed dependencies:
