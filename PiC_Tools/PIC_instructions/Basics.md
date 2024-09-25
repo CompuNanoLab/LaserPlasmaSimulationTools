@@ -6,12 +6,22 @@ This file contains the instructions to install general dependencies in your lapt
 In order to use most of the Laser-Plasma simulation tools in Windows, you must set up a running Linux platform:
 
 - Go to Start. Search for "Turn Windows features on or off."
-- Check the option Windows Subsystem for Linux.
-- Open Command Prompt as an administrator.
+- Check the option Windows Subsystem for Linux:
+  
+  <img src="https://github.com/CompuNanoLab/LaserPlasmaSimulationTools/PiC_Tools/Images/140382467/75fe59a8-35c6-47c9-9b3e-fef7ff2c0fad" width="400" />
+  
+- Open Command Prompt as an administrator:
+  
+  <img src="https://github.com/CompuNanoLab/LaserPlasmaSimulationTools/PiC_Tools/Images/140382467/96052034-10c0-417a-90dc-71180df4704d" width="400" />
+  
 - Run the command below to install the *Distro* (e.g. Ubuntu, Debian, ...) of your choice:
 - Launch the *Distro* by searching from the start menu and insert a username and password. Remember that when you launch the virtual machine you are opening a terminal in the ```$HOME``` of your Linux platform.
+  
+  <img src="https://github.com/CompuNanoLab/LaserPlasmaSimulationTools/140382467/fb762f06-3d6b-4ddc-b090-e2569d73d3fa" width="400" />
 
 You can access the files of your virtual machine by opening the Windows File Explorer and looking for the Linux folder. Inside the folder with the name of your Distro you can find your ```home``` directory.
+
+<img src="https://github.com/CompuNanoLab/LaserPlasmaSimulationTools/140382467/3278d5b3-cbc6-43a3-959e-78b11d40ac9a" width="600" />
 
 ### Debian-based OS:
 To install the dependencies on your Debian-based laptop you must use the native Linux **apt-get** package manager. You can run the following command on the terminal to install the needed dependencies:
