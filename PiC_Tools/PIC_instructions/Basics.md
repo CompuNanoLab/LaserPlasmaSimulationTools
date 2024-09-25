@@ -52,7 +52,7 @@ Source the new bash profile by launching the following command on the terminal:
 source $HOME/.bashrc
 ```
 
-###Fedora OS
+### Fedora OS
 To install the dependencies on your Fedora-based laptop you must use the native Linux **dnf** package manager. You can run the following command on the terminal to install the needed dependencies:
 ```
 sudo dnf install gcc-c++ git hdf5-openmpi hdf5-openmpi-devel openmpi-devel python python-devel python3-h5py ipython python3-pint python3-sphinx python3-matplotlib 
