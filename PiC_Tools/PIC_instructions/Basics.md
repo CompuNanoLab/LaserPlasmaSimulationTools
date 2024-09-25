@@ -109,7 +109,8 @@ deactivate
 If you encounter problems with openmpi and/or hdf5 directly, you may need to install them from source. To do that, try to follow the instructions [here](https://smileipic.github.io/Smilei/Use/install_linux.html#troubleshooting).
 
 ### MacOS 
-First install `xcode-select` by launching the following command on the terminal:
+
+The easiest way to install the necessary dependencies is by using alternatively **Homebrew**. First install `xcode-select` by launching the following command on the terminal:
 ```bash
 xcode-select --install
 ```
@@ -122,11 +123,23 @@ Once installed, to use Homebrew on the command line it is necessary to modify th
 (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/<your_account>/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)""
 ```
-Then install git and Python using Homebrew:
+Then install some basic dependencies using Homebrew:
 ```bash
+brew update
 brew install git python
-brew install numpy scipy 
+brew install numpy scipy
+brew install openmpi
+brew install hdf5-mpi
+brew install libomp
 ```
+To check the formulae (dependencies) installed on your Mac use the command
+```
+brew list
+```
+To check the version of your C++ compiler use the command:
+```
+brew info gcc
+``` 
 To use the installed Python as the default one you will need to modify the ".zprofile" adding the following line:
 ```bash
 export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
