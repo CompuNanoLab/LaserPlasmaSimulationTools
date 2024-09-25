@@ -165,19 +165,6 @@ deactivate
 To run efficiently in parallel on your machine you need to know your architecture.
 For example, you can find out the number of threads per core and cores per socket on your machine with the command: `lscpu` (Linux) or `sysctl -a | grep machdep.cpu` (MacOS).
 
-# Cineca
-You must have a Cineca account and two-factor authentication (2FA) enabled (https://wiki.u-gov.it/confluence/display/SCAIUS/How+to+connect+via+2FA).
-
-To access Galileo100:
-```bash
-ssh <username>@login.g100.cineca.it
-```
-and Leonardo:
-```bash
-ssh <username>@login.leonardo.cineca.it
-```
-then follow the related instructions. 
-
 # Git 
 There are many tutorials online, please consider this just a summary/reminder of the main git commands.
 
