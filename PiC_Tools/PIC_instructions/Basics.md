@@ -81,9 +81,32 @@ To install the dependencies on your ArchLinux-based laptop you must use the nati
 ```
 sudo pacman -S git hdf5-openmpi python-numpy python-sphinx python-h5py-openmpi python-matplotlib python-pint make gcc 
 ```
+Follow then the istructions in **For all Distros** section
 
 ### For all Distros
-If you encounter problems, you may need to install openmpi and/or hdf5 directly from source. To do that, try to follow the instructions [here](https://smileipic.github.io/Smilei/Use/install_linux.html#troubleshooting).
+Create then a `python` virtual environment by running:
+``` Bash
+python3 -m venv myenv
+```
+then, source it to activate the virtual environment. In Linux:
+
+``` Bash
+source ~/myenv/bin/activate
+```
+In Windows:
+``` Bash
+source /home/your_username/myenv/bin/activate
+```
+and install the needed packages via pip:
+``` Bash
+pip3 install h5py ipython pint sphinx matplotlib dev numpy scipy 
+```
+Any time you need to activate the environment you must launch in the terminal the source prompt. If you want to deactivate the virtual environment you'll need only to run the command:
+``` Bash
+deactivate 
+```
+
+If you encounter problems with openmpi and/or hdf5 directly, you may need to install them from source. To do that, try to follow the instructions [here](https://smileipic.github.io/Smilei/Use/install_linux.html#troubleshooting).
 
 ### MacOS 
 First install `xcode-select` by launching the following command on the terminal:
@@ -122,7 +145,10 @@ Alternatively, use the same line directly on the command line of your terminal. 
 ``` Bash
 pip install h5py ipython pint sphinx matplotlib dev numpy scipy 
 ```
-
+If you want to deactivate the virtual environment you'll need only to run the command:
+``` Bash
+deactivate 
+```
 To run efficiently in parallel on your machine you need to know your architecture.
 For example, you can find out the number of threads per core and cores per socket on your machine with the command: `lscpu` (Linux) or `sysctl -a | grep machdep.cpu` (MacOS).
 
@@ -142,9 +168,9 @@ then follow the related instructions.
 # Git 
 There are many tutorials online, please consider this just a summary/reminder of the main git commands.
 
-If you want to contribute to the `PIC_tools` repo, first fork it in your GitHub account, then clone it: 
+If you want to contribute to the `LaserPlasmaSimulationTools` repo, first fork it in your GitHub account, then clone it: 
 ```bash
-git clone git@github.com:<your_git_username>/PIC_tools.git
+git clone git@github.com:<your_git_username>/LaserPlasmaSimulationTools.git
 ```
 to incorporate changes from a remote repository into the current branch: 
 ```bash
