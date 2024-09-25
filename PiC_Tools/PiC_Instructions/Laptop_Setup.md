@@ -219,19 +219,19 @@ If you want to contribute to the `LaserPlasmaSimulationTools` repo, first fork i
 ```bash
 git clone git@github.com:<your_git_username>/LaserPlasmaSimulationTools.git
 ```
-to incorporate changes from a remote repository into the current branch: 
+To incorporate changes from a remote repository into the current branch: 
 ```bash
 git pull
 ```
-to prepare the content staged for the next commit:
+To prepare the content staged for the next commit:
 ```bash
 git add <files_to_add>
 ```
-create a new commit, i.e. record the latest changes of the source code to your repository:
+Create a new commit, i.e. record the latest changes of the source code to your repository:
 ```bash
 git commit -a -m "useful description"
 ```
-update remote repository:
+Update remote repository:
 ```bash
 git push
 ```
