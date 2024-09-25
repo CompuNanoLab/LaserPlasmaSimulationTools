@@ -66,7 +66,10 @@ To edit files you can use a command-line editor like `nano`. To open a file usin
 ```bash
 nano text.txt
 ```
-Then, you can move with arrow keys and edit the file as you want. Use **Ctrl + O + enter** to save changes to the fileand **Ctrl + X** to exit. Other available editors are `vi` and `emacs`.
+Then, you can move with arrow keys and edit the file as you want. Use **Ctrl + O + enter** to save changes to the fileand **Ctrl + X** to exit. Other available editors are `vi` and `emacs`. 
+
+To run efficiently in parallel on your machine you need to know your architecture.
+For example, you can find out the number of threads per core and cores per socket on your machine with the command: `lscpu` (Linux) or `sysctl -a | grep machdep.cpu` (MacOS).
 
 ## General dependencies
 This section contains the instructions to install general dependencies in your laptop based on your OS. These dependencies are required by all Laser-Plasma tools.
@@ -208,8 +211,6 @@ If you want to deactivate the virtual environment you'll need only to run the co
 ``` Bash
 deactivate 
 ```
-To run efficiently in parallel on your machine you need to know your architecture.
-For example, you can find out the number of threads per core and cores per socket on your machine with the command: `lscpu` (Linux) or `sysctl -a | grep machdep.cpu` (MacOS).
 
 # Git 
 There are many tutorials online, please consider this just a summary/reminder of the main git commands.
