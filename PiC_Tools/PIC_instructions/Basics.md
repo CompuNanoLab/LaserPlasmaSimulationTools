@@ -58,10 +58,6 @@ To access Galileo100:
 ```bash
 ssh <username>@login.g100.cineca.it
 ```
-similar for Marconi100:
-```bash
-ssh <username>@login.m100.cineca.it
-```
 and Leonardo:
 ```bash
 ssh <username>@login.leonardo.cineca.it
