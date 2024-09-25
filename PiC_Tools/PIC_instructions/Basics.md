@@ -1,6 +1,6 @@
 # Laptop
 ## General dependencies
-This file contains the instructions to install general dependencies in your laptop based on your Operative System.
+This file contains the instructions to install general dependencies, useful for all simulation codes, in your laptop based on your Operative System.
 
 ### Windows
 In order to use most of the Laser-Plasma simulation tools in Windows, you must set up a running Linux platform:
@@ -115,14 +115,13 @@ python3 -m venv myenv
 ```
 then, if you want to, let the terminal source it automatically every time you open a new terminal by adding to your ".zshrc" file the following line:
 
-```
+``` Bash
 source ~/myenv/bin/activate
 ```
 Alternatively, use the same line directly on the command line of your terminal. Source the environment and install the packages via pip:
-```
+``` Bash
 pip install h5py ipython pint sphinx matplotlib dev numpy scipy 
 ```
-Then, follow the related instructions for each case.
 
 To run efficiently in parallel on your machine you need to know your architecture.
 For example, you can find out the number of threads per core and cores per socket on your machine with the command: `lscpu` (Linux) or `sysctl -a | grep machdep.cpu` (MacOS).
