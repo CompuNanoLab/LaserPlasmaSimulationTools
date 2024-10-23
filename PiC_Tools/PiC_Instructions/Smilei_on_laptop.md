@@ -13,7 +13,7 @@ https://smileipic.github.io/Smilei
 The setup of the environment to compile Smilei should be already active after following the commands in `Laptop_Setup.md`
 
 ### Compile Smilei and post-processing tools
-Follow these instructions to install Smilei on your Linux laptop. For Windows laptop you might use these same instructions and build Smilei in your Linux platform.
+Follow these instructions to install Smilei on your Linux laptop. For Windows laptop, you might use these same instructions and build Smilei in your Linux platform.
 
 Download the source code in the `$HOME`:
 ```bash
@@ -22,7 +22,7 @@ git clone https://github.com/SmileiPIC/Smilei.git
 ```
 Move to the downloaded directory:
 ```bash
-cd smilei
+cd Smilei
 ```
 then compile:
 ```bash
@@ -79,5 +79,5 @@ export OMP_NUM_THREADS=2
 
 and if you have Core(s) per socket = 4, you can run on the 4 cores like this 
 ```bash
-mpirun -np 4 ./smilei input.py
+mpirun -np 4 $HOME/Smilei/smilei input.py
 ```
