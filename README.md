@@ -3,7 +3,7 @@ Instructions and examples for running Particle-In-Cell (PIC), radiative hydrodyn
 
 Structure of the repository:
 - **PiC_Tools** contains instructions and scripts for PIC simulations.
-- **RH_Tools** contains instructions and scripts for radiative hydrodynamic simulations.
-- **MC_Tools** contains instructions and scripts for Monte Carlo simulations.
+- **RH_Tools** contains instructions and scripts for radiative hydrodynamic simulations. (TO DO)
+- **MC_Tools** contains instructions and scripts for Monte Carlo simulations. (TO DO)
 
 This repository is maintained by the [laser-plasma team](https://www.ensure.polimi.it/) of NanoLab at Politecnico di Milano. 
