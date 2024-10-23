@@ -28,6 +28,7 @@ then compile:
 ```bash
 make -j 2
 ```
+You can clean the building process with `make clean` (do it every time you re-compile).
 It is better, then, to install the post-processing tools inside the Python virtual environment you should have created following the instructions in `Laptop_Setup.md`. So, source the environment (probably `source $HOME/myenv/bin/activate`) and then:
 ```bash
 make happi
