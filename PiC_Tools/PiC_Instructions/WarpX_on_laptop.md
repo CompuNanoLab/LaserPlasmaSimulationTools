@@ -25,7 +25,9 @@ Move to the downloaded directory:
 cd WarpX
 ```
 Configure your build:
+```bash
 cmake -S . -B build_omp -DWarpX_COMPUTE=OMP -DWarpX_FFT=ON -DWarpX_QED_TABLE_GEN=ON -DWarpX_DIMS="1;2;RZ;3"
+```
 If you need to change some configuration options (e.g. choose dimensionality, GPU support vs. CPU only, etc.), type this command and edit the options (advanced options available with 't'):
 ```bash
 ccmake build
