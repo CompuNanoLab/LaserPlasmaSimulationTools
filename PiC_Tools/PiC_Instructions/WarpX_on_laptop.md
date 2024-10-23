@@ -75,7 +75,7 @@ cmake --build build -j 8
 then proceed with compilation.
 
 ## Run WarpX
-Once you've installed WarpX, you have executables (for 1D, 2D, 3D and cylindrical geometries) ready to perform simulations which are found in `$HOME/WarpX/build_omp/bin/`. These executables need an input file `input.py` file to set up the simulation you want to perform. An input file contains numerical, physical and diagnostic parameters (refer to https://smileipic.github.io/Smilei/Use/namelist.html for a detailed description). You can find examples of input files in `PiC_Scripts` folder.
+Once you've installed WarpX, you have executables (for 1D, 2D, 3D and cylindrical geometries) ready to perform simulations which are found in `$HOME/WarpX/build_omp/bin/`. These executables need an input file `input.py` file to set up the simulation you want to perform. An input file contains numerical, physical and diagnostic parameters (refer to https://warpx.readthedocs.io/en/latest/usage/parameters.html for a detailed description). You can find examples of input files in `PiC_Scripts` folder.
 
 Move to the directory where the `input.py` file was created. Set the number of threads per core depending on the machine; for example, if Thread(s) per core = 2 (in the output of the commands shown at the end of the **Before starting** section of `Laptop_Setup.md`), then
 ```bash
