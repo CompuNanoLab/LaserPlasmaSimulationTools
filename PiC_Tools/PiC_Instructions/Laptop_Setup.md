@@ -78,7 +78,7 @@ This section contains the instructions to install general dependencies in your l
 To install the dependencies on your Debian-based laptop you must use the native Linux **apt-get** package manager. You can run the following command on the terminal to install the needed dependencies:
 ```
 sudo apt-get update
-sudo apt-get install git python3-h5py python3-dev python3-numpy python3-scipy build-essential gcc libhdf5-openmpi-dev 
+sudo apt-get install git python3-h5py python3-dev python3-numpy python3-scipy build-essential gcc libhdf5-openmpi-dev libboost-all-dev
 ```
 Open, then, your ``.bashrc`` or ``.bash_profile`` file in your $HOME. For example, if you want to use the nano editor, type in the terminal:
 ```
@@ -97,12 +97,12 @@ Source the new bash profile by launching the following command on the terminal:
 ```
 source $HOME/.bashrc
 ```
-Follow then the istructions in **For all Distros** section.
+Follow then the instructions in **For all Distros** section.
 
 ### Fedora OS
 To install the dependencies on your Fedora-based laptop you must use the native Linux **dnf** package manager. You can run the following command on the terminal to install the needed dependencies:
 ```
-sudo dnf install gcc-c++ git hdf5-openmpi hdf5-openmpi-devel openmpi-devel python python-devel python-numpy python-scipy
+sudo dnf install gcc-c++ git hdf5-openmpi hdf5-openmpi-devel openmpi-devel python python-devel python-numpy python-scipy boost-devel
 ```
 Open your ``.bashrc`` or ``.bash_profile`` file in your $HOME. For example, if you want to use the nano editor, type in the terminal:
 ```
