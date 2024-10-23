@@ -30,7 +30,7 @@ cmake -S . -B build_omp -DWarpX_COMPUTE=OMP -DWarpX_FFT=ON -DWarpX_QED_TABLE_GEN
 ```
 If you need to change some configuration options (e.g. choose dimensionality, GPU support vs. CPU only, etc.), type this command and edit the options (advanced options available with 't'):
 ```bash
-ccmake build
+ccmake build_omp
 ```
 To save the changes press 'g'. Then build with the following command:
 ```bash
