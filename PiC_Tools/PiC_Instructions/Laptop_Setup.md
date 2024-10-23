@@ -236,5 +236,4 @@ Update remote repository:
 git push
 ```
 
-If you want to merge your changes in the main repository, go to GitHub and make a pull request:
-If the pull request is accepted and the code is merged, then go back to your repo and synch your fork, then do git pull from the terminal to update your remote repository. 
+To merge your changes in the main repository, submit a pull request to GitHub. If the pull request is accepted and the code is merged, go back to your repo and synch your fork. Then, do a git pull from the terminal to update your remote repository. 
