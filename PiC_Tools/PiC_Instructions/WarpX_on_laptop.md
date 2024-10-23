@@ -26,13 +26,13 @@ cd WarpX
 ```
 Configure your build:
 ```bash
-cmake -S . -B build_omp -DWarpX_COMPUTE=OMP -DWarpX_FFT=ON -DWarpX_QED_TABLE_GEN=ON -DWarpX_DIMS="1;2;RZ;3"
+cmake -S . -B build_omp -DWarpX_COMPUTE=OMP -DWarpX_QED_TABLE_GEN=ON -DWarpX_DIMS="1;2;RZ;3"
 ```
-If you need to change some configuration options (e.g. choose dimensionality, GPU support vs. CPU only, etc.), type this command and edit the options (advanced options available with 't'):
+If you need to change some configuration options (e.g. choose dimensionality, GPU support vs. CPU only, etc.), type this command and edit the options (advanced options available with `t`):
 ```bash
 ccmake build_omp
 ```
-To save the changes press 'g'. Then build with the following command:
+To save the changes press `c` and `g`. Then build with the following command:
 ```bash
 cmake --build build_omp -j 2
 ```
@@ -84,7 +84,7 @@ export OMP_NUM_THREADS=2
 
 and if you have Core(s) per socket = 4, you can run on the 4 cores like this 
 ```bash
-mpirun -np 4 $HOME/WarpX/build_omp/bin/warpx.2d.MPI.OMP.DP.PDP.OPMD.QED input.txt warpx.numprocs = 1 4
+mpirun -np 4 $HOME/WarpX/build_omp/bin/warpx.2d.MPI.OMP.DP.PDP.OPMD.EB.QED.GENQEDTABLES input.txt warpx.numprocs = 1 4
 ```
 note that the executable for 2D simulations is being used and that `warpx.numprocs` flag is optional.
 
