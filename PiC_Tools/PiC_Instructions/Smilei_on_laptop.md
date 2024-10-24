@@ -2,14 +2,14 @@
 
 ## *WARNING!*
   
-**Before starting the installation of Smilei you MUST follow the instructions in `Laptop_Setup.md`**
+**Before starting the installation of Smilei you MUST follow the instructions in `Laptop_setup.md`**
 
 ## Smilei Documentation
 https://smileipic.github.io/Smilei
 
 ## Smilei Build on Linux
 
-### Smilei dependencies set-up
+### Smilei dependencies setup
 The setup of the environment to compile Smilei should be already active after following the commands in `Laptop_Setup.md`
 
 ### Compile Smilei and post-processing tools
@@ -29,7 +29,7 @@ then compile:
 make -j 2
 ```
 You can clean the building process with `make clean` (do it every time you re-compile).
-It is better, then, to install the post-processing tools inside the Python virtual environment you should have created following the instructions in `Laptop_Setup.md`. So, source the environment (probably `source $HOME/myenv/bin/activate`) and then:
+It is better to install the post-processing tools inside the Python virtual environment you should have created following the instructions in `Laptop_Setup.md`. So, source the environment (probably `source $HOME/myenv/bin/activate`) and then:
 ```bash
 make happi
 ```
