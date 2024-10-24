@@ -1,6 +1,6 @@
 # Instructions for Smilei on laptop
 
-## *WARNING!*
+## :warning: *WARNING!*
   
 **Before starting the installation of Smilei you MUST follow the instructions in `Laptop_setup.md`**
 
