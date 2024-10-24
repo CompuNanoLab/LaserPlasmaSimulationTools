@@ -6,8 +6,7 @@ Before installing PiC codes on Galileo100 read `Cineca_HPC_systems_setup.md`.
 ### Smilei Documentation
 https://smileipic.github.io/Smilei
 
-### Build Smilei 
-#### Smilei dependencies setup
+### Smilei dependencies setup
 Create a `smilei.profile` file in your `$HOME` containing the following lines (TO UPDATE):
 ```bash
 module purge
@@ -27,7 +26,9 @@ export CXXFLAGS="-xCOMMON-AVX512 -ip -inline-factor=1000 -D__INTEL_CASCADELAKE_6
 and source it:
 ```bash
 source $HOME/smilei.profile
-``` 
+```
+
+### Build Smilei 
 Download the source code in your `$HOME`:
 ```bash
 git clone https://github.com/SmileiPIC/Smilei.git
@@ -40,7 +41,7 @@ and compile:
 ```bash
 make -j 16 config=omptasks
 ```
-If it compiles successfully, you will find the executable `smilei` in the current directory and another executable `smilei_test` is generated to be run in test mode (e.g. use it to check that the input file is ok).
+If it compiles successfully, you will find the executable `smilei` in the current directory. Another executable `smilei_test` is generated to be run in test mode (e.g. use it to check that the input file is ok).
 
 ### Run Smilei
 To run a Smilei simulation follow these steps:
@@ -69,7 +70,7 @@ export OMP_SCHEDULE=dynamic
 export OMP_NUM_THREADS=1
 srun --cpus-per-task $OMP_NUM_THREADS --cpu-bind=cores -m block:block $HOME/Smilei/smilei input.py > output.txt
 ```
-Here is an example of what `job.sh` could contain if you want to run on the serial partition on 4 cores with 1 MPI task and 4 OMP thread per core  
+Here is an example of what `job.sh` could contain if you want to run on the serial partition on 4 cores with 1 MPI task and 4 OMP threads per core:  
 ```bash
 #!/bin/bash
 #SBATCH --time=04:00:00
@@ -96,13 +97,13 @@ Here are some tips for parallelization from the Smilei documentation: https://sm
 :warning: Warning: performances are extremely sensitive to the number of patches you use (which has to be a power of 2 in each direction) and you may have to redefine the number of cells in your simulation to optimize the number of patches you can use (often, the more the better).
 
 ### Install Smilei post-processing tools
-Load `smilei.profile` and your Python environment, then move to the Smilei source directory
+Load `smilei.profile` and your Python environment, then move to the Smilei source directory:
 ```bash
 source $HOME/smilei.profile
 source $HOME/myenv/bin/activate
 cd $HOME/Smilei
 ```
-Build the post-processing Python package `happi`
+Build the post-processing Python package `happi`:
 ```bash
 make happi
 ```
@@ -110,7 +111,7 @@ A message like this should appear:
 ```bash
 Installing /g100/home/userexternal/<username>/.local/lib/python<...>/site-packages/smilei.pth
 ```
-Copy the smilei.pth path in the correct directory of your Python environment 
+Copy the smilei.pth path in the correct directory of your Python environment:
 ```bash
 cp /g100/home/userexternal/<username>/.local/lib/python<...>/site-packages/smilei.pth $HOME/myenv/lib/python<...>/site-packages
 ```
@@ -121,8 +122,7 @@ Now you should be able to `import happi` in a Python shell or script and you can
 ### WarpX Documentation
 https://ecp-warpx.github.io/  and https://warpx.readthedocs.io/en/latest/
 
-### Build WarpX on Galileo100
-#### WarpX dependencies setup
+### WarpX dependencies setup
 Create a `warpx.profile` file in your `$HOME` containing the following lines (TO UPDATE):
 ```bash
 module purge
@@ -137,7 +137,8 @@ module load boost/1.74.0--openmpi--4.1.1--gcc--10.2.0-cuda--11.1.0
 and source it:
 ```bash
 source $HOME/warpx.profile
-``` 
+```
+### Build WarpX
 Download the source code in your `$HOME`:
 ```bash
 git clone https://github.com/ECP-WarpX/WarpX.git
@@ -158,8 +159,7 @@ To save the changes press `c` and `g`. Then build with the following command:
 ```bash
 cmake --build build_omp -j 16
 ```
-If it compiles successfully, you will find the executables in `WarpX/build_omp/bin/`
-If you have problems with the pre-installed adios, you may want to try and install it from source by following the instructions here: https://adios2.readthedocs.io/en/latest/setting_up/setting_up.html#install-from-source. 
+If it compiles successfully, you will find the executables in `WarpX/build_omp/bin/`. If you have problems with the pre-installed adios, you may want to try and install it from source by following the instructions here: https://adios2.readthedocs.io/en/latest/setting_up/setting_up.html#install-from-source. 
 Create a  `warpx.profile` file working with ADIOS2 (TO UPDATE):
 ```bash
 module purge
@@ -170,7 +170,8 @@ module load openmpi/4.1.1--gcc--10.2.0-cuda-11.5.0
 module load boost/1.77.0--openmpi--4.1.1--gcc--10.2.0
 module load zlib/1.2.11--gcc--10.2.0
 export ADIOS2_DIR=$HOME/ADIOS2/install/
-```Source it and install ADIOS2 in this way:
+```
+Source it and install ADIOS2 in this way:
 ```bash
 source ~/warpx.profile
 git clone https://github.com/ornladios/ADIOS2.git ADIOS2
@@ -183,12 +184,12 @@ make install
 ```
 Then follow the instructions above to install WarpX.
 
-## Run WarpX
+### Run WarpX
 To run a WarpX simulation follow these steps:
 * Create a directory `$MYDIR` in your scratch.
 * Put in this directory a valid `input.txt`. 
 * Be sure to have the `WarpX` directory and the `warpx.profile` file in your `$HOME`, and to have successfully compiled Warpx.
-* Prepare your job script `job.sh` and submit it with the command `sbatch job.sh`.
+* Prepare your job script `job.sh` and submit it with the command `sbatch job.sh`. Here is an example of what `job.sh` could contain:
 ```bash
 #!/bin/bash
 #SBATCH --time=04:00:00
@@ -200,68 +201,64 @@ To run a WarpX simulation follow these steps:
 #SBATCH --job-name=job_warpx
 #SBATCH --err=warpx.err
 #SBATCH --out=warpx.out
-#SBATCH --account=pMI22_EneDa
+#SBATCH --account=<project_name>
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=mymail@mymail.com
-
 export MYDIR=path/to/your/simulation/directory
 cd $CINECA_SCRATCH/$MYDIR
 source $HOME/warpx.profile
-
 export OMP_SCHEDULE=dynamic
 export OMP_NUM_THREADS=1
-
-srun --cpu-bind=cores $HOME/warpx/build/bin/warpx.2d.MPI.OMP.DP.PDP.OPMD.QED.GENQEDTABLES input.txt > output.txt
+srun --cpu-bind=cores $HOME/WarpX/build/bin/warpx.2d.MPI.OMP.DP.PDP.OPMD.EB.QED.GENQEDTABLES input.txt > output.txt
 ```
 
-submit your job with 
-```bash
-sbatch job.sh
-```
-
-## Post-process
-you should already have installed the openpmd-api 
-otherwise you can load your python environment and use pip
-
+### Install WarpX post-processing tools
+Following the guide `Cineca_HPC_systems_setup.md`, you should already have installed the openpmd-api Python package. Otherwise you can load your Python environment and use pip to install it:
 ```bash
 source $HOME/myenv/bin/activate
 pip install openpmd-api
 ```
 
+## EPOCH on Galileo100
 
+### Epoch Documentation
+https://epochpic.github.io/
 
-# EPOCH
-## Build
-clone the repository
-```bash
-git clone --recursive https://github.com/Warwick-Plasma/epoch.git
-```
-
-create a `epoch.profile` file in your `$HOME` with the following lines
+### Epoch dependencies setup
+Create an `epoch.profile` file in your `$HOME` containing the following lines (TO UPDATE):
 ```bash
 module purge
 module load intel/oneapi-2022--binary
 module load intelmpi/oneapi-2022--binary
 module load python/3.8.12--intel--2021.4.0
 ```
+and source it:
+```bash
+source $HOME/epoch.profile
+```
 
-then move to the target directory, e.g.
+### Build Epoch
+Download the source code in your `$HOME`:
+```bash
+git clone --recursive https://github.com/Warwick-Plasma/epoch.git
+```
+Move inside the target directory, for example:
 ```bash
 cd epoch/epoch2d
 ```
-
-and compile by typing
+and compile:
 ```bash
-source $HOME/epoch.profile
 make -j8 COMPILER=intel
 ```
+If it compiles successfully, you will find the executable in `epoch/epoch2d/bin`.
 
-the executable should be generated in `epoch/epoch2d/bin`
-
-## Run
-prepare your job script `job.sh` and then submit it with `sbatch job.sh`
-
-here is an example of what `job.sh` could contain 
+### Run Epoch
+To run an Epoch simulation follow these steps:
+* Create a directory `$MYDIR` in your scratch.
+* In this directory, create a `Data` sub-directory. 
+* Put in the `Data` directory a valid `input.deck`. 
+* Be sure to have the `Epoch` directory and the `epoch.profile` file in your `$HOME`, and to have successfully compiled Epoch in the geometry you need.
+* Prepare your job script `job.sh` and submit it with the command `sbatch job.sh`. Here is an example of what `job.sh` could contain:
 ```bash
 #!/bin/bash
 #SBATCH --time=04:00:00
@@ -273,35 +270,31 @@ here is an example of what `job.sh` could contain
 #SBATCH --job-name=job_epoch
 #SBATCH --err=epoch.err
 #SBATCH --out=epoch.out
-#SBATCH --account=pMI21_EneDa_1
+#SBATCH --account=<project_name>
 #SBATCH --qos=noQOS
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=mymail@mymail.com
-
 cd $CINECA_SCRATCH/$MYDIR
 source $HOME/epoch.profile
 echo Data | srun $HOME/epoch/epoch2d/bin/epoch2d > output.txt
 ```
 
-here it is assumed that: 
-* you have created a directory `$MYDIR` in your scratch 
-* in this directory you have created a `Data` sub-directory 
-* you have a valid `input.deck` inside the `Data` directory 
-* you have the `epoch` directory and the `epoch.profile` file in your `$HOME`
-* you have successfully compiled epoch2d
-
-## Post-process 
-source your python3 environment 
-move to any epoch source directory (e.g. `epoch/epoch2d`) and type
+### Install Epoch post-processing tools (TO UPDATE)
+Load `epoch.profile` and your Python environment, then move to the Epoch source directory:
+```bash
+source $HOME/epoch.profile
+source $HOME/myenv/bin/activate
+cd $HOME/epoch
+```
+Build the post-processing package:
 ```bash
 make sdfutils
 ```
-a message similar to this should appear
+A message similar to this should appear:
 ```bash
 writing list of installed files to 'pybuild/files.txt'
 ```
-you have to copy all the files listed in `/epoch/SDF/utilities/pybuild/files.txt` in the correct directory of your python environment `$HOME/myenv/lib/python3.8/site-packages/`
-this should work
+Now copy all the files listed in `/epoch/SDF/utilities/pybuild/files.txt` in the correct directory of your python environment `$HOME/myenv/lib/python3.8/site-packages/`:
 ```bash
 export MYDIR=$HOME/myenv/lib/python3.8/site-packages/
 cp /g100/home/userexternal/aforment/.local/lib/python3.8/site-packages/sdf_legacy.py $MYDIR
@@ -310,13 +303,11 @@ cp /g100/home/userexternal/aforment/.local/lib/python3.8/site-packages/__pycache
 cp /g100/home/userexternal/aforment/.local/lib/python3.8/site-packages/sdf.cpython-38-x86_64-linux-gnu.so $MYDIR
 cp /g100/home/userexternal/aforment/.local/lib/python3.8/site-packages/sdf-1.0-py3.8.egg-info $MYDIR
 ```
-
-check that you have installed sdf and sdf_helper by verifying that these commands don't give errors 
+You can check that you have installed sdf and sdf_helper by verifying that these commands don't give errors:
 ```bash
 source $HOME/myenv/bin/activate
 ipython3
 import sdf
 import sdf_helper
 ``` 
-
-now you can use the python scripts to post-process your epoch data as you would do on your computer (provided that you source your python environment)
+Now you can use the Python scripts to post-process your epoch data as you would do on your computer (provided that you source your Python environment).
