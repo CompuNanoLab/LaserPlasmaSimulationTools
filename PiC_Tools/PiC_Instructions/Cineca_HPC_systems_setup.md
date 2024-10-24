@@ -102,6 +102,25 @@ or
 ```bash
 rsync --update --progress <path_2_file_u_want_2_upload> <username>@login.g100.cineca.it:<your_target_directory>
 ```
+To download large amounts of data you can use an automatic script based on rsync that automatically restarts when the transfer is interrupted:
+```bash
+#!/bin/bash
+name=folder
+source=<your_username>@login.g100.cineca.it:/g100_scratch/userexternal/<your_username>/${name}
+echo ${source}
+dest=${name}
+while [ 1 ]
+do
+    rsync -vv --partial --progress --inplace --append --compress --recursive $source $dest
+    if [ "$?" = "0" ] ; then
+        echo "rsync completed normally"
+        exit
+    else
+        echo "Rsync failure. Backing off and retrying..."
+        sleep 180
+    fi
+done
+```
 
 ## Run jobs
 To run your simulations (or also Python scripts if needed) you have to submit jobs to the scheduler, which is SLURM (https://slurm.schedmd.com/documentation.html) on Cineca systems. The scheduler will put your job in a queue, assign the computational resources required, launch it, stop it when it reaches the wall time, etc.
