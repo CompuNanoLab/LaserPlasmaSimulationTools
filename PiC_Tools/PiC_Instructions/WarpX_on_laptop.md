@@ -7,9 +7,9 @@
 ## WarpX Documentation
 https://ecp-warpx.github.io/  and https://warpx.readthedocs.io/en/latest/
 
-## WarpX Build on Linux
+## Build WarpX on Linux
 
-### WarpX dependencies set-up
+### Set up WarpX dependencies
 The setup of the environment to compile WarpX should be already active after following the commands in `Laptop_Setup.md`
 
 ### Compile WarpX
@@ -37,7 +37,7 @@ To save the changes press `c` and `g`. Then build with the following command:
 cmake --build build_omp -j 2
 ```
 
-## WarpX Build on MacOS (TO UPDATE)
+## Build WarpX on MacOS (TO UPDATE)
 
 Firstly, prepare the terminal for the building of WarpX by:
 ```bash
@@ -75,9 +75,9 @@ cmake --build build -j 8
 then proceed with compilation.
 
 ## Run WarpX
-Once you've installed WarpX, you have executables (for 1D, 2D, 3D and cylindrical geometries) ready to perform simulations which are found in `$HOME/WarpX/build_omp/bin/`. These executables need an input file `input.py` file to set up the simulation you want to perform. An input file contains numerical, physical and diagnostic parameters (refer to https://warpx.readthedocs.io/en/latest/usage/parameters.html for a detailed description). You can find examples of input files in `PiC_Scripts` folder.
+Once you've installed WarpX, you have executables (for 1D, 2D, 3D and cylindrical geometries) ready to perform simulations which are found in `$HOME/WarpX/build_omp/bin/`. These executables need an input file `input.txt` file to set up the simulation you want to perform. An input file contains numerical, physical and diagnostic parameters (refer to https://warpx.readthedocs.io/en/latest/usage/parameters.html for a detailed description). You can find examples of input files in `PiC_Scripts` folder.
 
-Move to the directory where the `input.py` file was created. Set the number of threads per core depending on the machine; for example, if Thread(s) per core = 2 (in the output of the commands shown at the end of the **Before starting** section of `Laptop_Setup.md`), then
+Move to the directory where the `input.txt` file was created. Set the number of threads per core depending on the machine; for example, if Thread(s) per core = 2 (in the output of the commands shown at the end of the **Before starting** section of `Laptop_Setup.md`), then
 ```bash
 export OMP_NUM_THREADS=2
 ```
