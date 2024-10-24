@@ -1,10 +1,129 @@
-# python
-setup your own python environment
-check out the instructions related to cineca
+# Instructions for PiC codes on Galileo100
+Before installing PiC codes on Galileo100 read `Cineca_HPC_systems_setup.md`.
 
-# WarpX
-## Build
-create a `warpx.profile` file in your `$HOME` with the following lines
+## Smilei on Galileo100
+
+### Smilei Documentation
+https://smileipic.github.io/Smilei
+
+### Build Smilei 
+#### Smilei dependencies setup
+Create a `smilei.profile` file in your `$HOME` containing the following lines (TO UPDATE):
+```bash
+module purge
+module load profile/global
+module load anaconda3/2020.07--gcc--8.3.1
+module load intel/oneapi-2021--binary
+module load intelmpi/oneapi-2021--binary
+module load libszip/2.1.1--gcc--10.2.0
+module load zlib/1.2.11--gcc--10.2.0
+module load hdf5/1.10.7--intelmpi--oneapi-2021--binary
+module load boost/1.76.0--intelmpi--oneapi-2021--binary
+export SMILEICXX=mpiicpc
+export HDF5_ROOT=/cineca/prod/opt/libraries/hdf5/1.10.7/intelmpi--oneapi-2021--binary
+export BOOST_ROOT=/cineca/prod/opt/libraries/boost/1.76.0/intelmpi--oneapi-2021--binary/
+export CXXFLAGS="-xCOMMON-AVX512 -ip -inline-factor=1000 -D__INTEL_CASCADELAKE_6248 -qopt-zmm-usage=high -fno-alias"
+```
+and source it:
+```bash
+source $HOME/smilei.profile
+``` 
+Download the source code in your `$HOME`:
+```bash
+git clone https://github.com/SmileiPIC/Smilei.git
+```
+Move inside the directory:
+```bash
+cd Smilei
+``` 
+and compile:
+```bash
+make -j 16 config=omptasks
+```
+If it compiles successfully, you will find the executable `smilei` in the current directory and another executable `smilei_test` is generated to be run in test mode (e.g. use it to check that the input file is ok).
+
+### Run Smilei
+To run a Smilei simulation follow these steps:
+* Create a directory `$MYDIR` in your scratch.
+* Put in this directory a valid `input.py`. 
+* Be sure to have the `Smilei` directory and the `smilei.profile` file in your `$HOME`, and to have successfully compiled Smilei.
+* Prepare your job script `job.sh` and submit it with the command `sbatch job.sh`.
+Here is an example of what `job.sh` could contain if you want to run on the serial partition on 4 cores with 4 MPI tasks and 1 OMP thread per task:
+```bash
+#!/bin/bash
+#SBATCH --time=04:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=4
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=31200MB 
+#SBATCH -p g100_all_serial
+#SBATCH --job-name=job_smilei
+#SBATCH --err=smilei.err
+#SBATCH --out=smilei.out
+#SBATCH --account=<project_name>
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=mymail@mymail.com
+cd $CINECA_SCRATCH/$MYDIR 
+source $HOME/smilei.profile
+export OMP_SCHEDULE=dynamic
+export OMP_NUM_THREADS=1
+srun --cpus-per-task $OMP_NUM_THREADS --cpu-bind=cores -m block:block $HOME/Smilei/smilei input.py > output.txt
+```
+Here is an example of what `job.sh` could contain if you want to run on the serial partition on 4 cores with 1 MPI task and 4 OMP thread per core  
+```bash
+#!/bin/bash
+#SBATCH --time=04:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=31200MB 
+#SBATCH -p g100_all_serial
+#SBATCH --job-name=job_smilei
+#SBATCH --err=smilei.err
+#SBATCH --out=smilei.out
+#SBATCH --account=<project_name>
+#SBATCH --qos=noQOS
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=mymail@mymail.com
+cd $CINECA_SCRATCH/$MYDIR 
+source $HOME/smilei.profile
+export OMP_SCHEDULE=dynamic
+export OMP_NUM_THREADS=4
+srun --cpus-per-task $OMP_NUM_THREADS --cpu-bind=cores -m block:block $HOME/Smilei/smilei input.py > output.txt
+```
+Here are some tips for parallelization from the Smilei documentation: https://smileipic.github.io/Smilei/Understand/parallelization.html#practical-setup
+
+:warning: Warning: performances are extremely sensitive to the number of patches you use (which has to be a power of 2 in each direction) and you may have to redefine the number of cells in your simulation to optimize the number of patches you can use (often, the more the better).
+
+### Install Smilei post-processing tools
+Load `smilei.profile` and your Python environment, then move to the Smilei source directory
+```bash
+source $HOME/smilei.profile
+source $HOME/myenv/bin/activate
+cd $HOME/Smilei
+```
+Build the post-processing Python package `happi`
+```bash
+make happi
+```
+A message like this should appear:
+```bash
+Installing /g100/home/userexternal/<username>/.local/lib/python<...>/site-packages/smilei.pth
+```
+Copy the smilei.pth path in the correct directory of your Python environment 
+```bash
+cp /g100/home/userexternal/<username>/.local/lib/python<...>/site-packages/smilei.pth $HOME/myenv/lib/python<...>/site-packages
+```
+Now you should be able to `import happi` in a Python shell or script and you can use your plot files to post-process your smilei data as you would do on your computer (provided that you source your Python environment first).
+
+## WarpX on Galileo100
+
+### WarpX Documentation
+https://ecp-warpx.github.io/  and https://warpx.readthedocs.io/en/latest/
+
+### Build WarpX on Galileo100
+#### WarpX dependencies setup
+Create a `warpx.profile` file in your `$HOME` containing the following lines (TO UPDATE):
 ```bash
 module purge
 module load gcc/10.2.0
@@ -15,48 +134,33 @@ module load zlib/1.2.11--gcc--10.2.0
 module load adios/1.13.1--openmpi--4.1.1--gcc--10.2.0-cuda--11.1.0
 module load boost/1.74.0--openmpi--4.1.1--gcc--10.2.0-cuda--11.1.0
 ```
-
-source the file with 
+and source it:
 ```bash
 source $HOME/warpx.profile
-```
-
-clone repository and move there 
-```bash
-git clone https://github.com/ECP-WarpX/WarpX.git warpx
-cd warpx
-```
-
-then configure build
-```bash
-cmake -S . -B build
-```
-
-setup the compiling options (e.g. dimensionality, QED, table generation)
-since not all the nodes in Galileo100 have GPUs, set `WarpX_COMPUTE = OMP` 
-```bash
-ccmake build
 ``` 
-
-finalize building
+Download the source code in your `$HOME`:
 ```bash
-cmake --build build -j 4
+git clone https://github.com/ECP-WarpX/WarpX.git
 ```
-
-if successful the executable will be in `warpx/build/bin`
-
-if you have problems with the pre-installed adios, you may want to try and install it by hand by following the instructions here: https://adios2.readthedocs.io/en/latest/setting_up/setting_up.html#install-from-source
-
+Move inside the directory:
 ```bash
-git clone https://github.com/ornladios/ADIOS2.git ADIOS2
-mkdir ADIOS2-build
-cd ADIOS2-build
-cmake -DCMAKE_INSTALL_PREFIX=$HOME/ADIOS2-install ../ADIOS2
-make -j 32
-make install
+cd WarpX
+``` 
+Configure your build:
+```bash
+cmake -S . -B build_omp -DWarpX_COMPUTE=OMP -DWarpX_QED_TABLE_GEN=ON -DWarpX_DIMS="1;2;RZ;3"
 ```
-
-Example of `warpx.profile` file working with ADIOS2:
+If you need to change some configuration options (e.g. choose dimensionality, GPU support vs. CPU only, etc.), type this command and edit the options (advanced options available with `t`):
+```bash
+ccmake build_omp
+```
+To save the changes press `c` and `g`. Then build with the following command:
+```bash
+cmake --build build_omp -j 16
+```
+If it compiles successfully, you will find the executables in `WarpX/build_omp/bin/`
+If you have problems with the pre-installed adios, you may want to try and install it from source by following the instructions here: https://adios2.readthedocs.io/en/latest/setting_up/setting_up.html#install-from-source. 
+Create a  `warpx.profile` file working with ADIOS2 (TO UPDATE):
 ```bash
 module purge
 module load profile/global
@@ -66,8 +170,7 @@ module load openmpi/4.1.1--gcc--10.2.0-cuda-11.5.0
 module load boost/1.77.0--openmpi--4.1.1--gcc--10.2.0
 module load zlib/1.2.11--gcc--10.2.0
 export ADIOS2_DIR=$HOME/ADIOS2/install/
-```
-Instuctions to install ADIOS2:
+```Source it and install ADIOS2 in this way:
 ```bash
 source ~/warpx.profile
 git clone https://github.com/ornladios/ADIOS2.git ADIOS2
@@ -80,9 +183,12 @@ make install
 ```
 Then follow the instructions above to install WarpX.
 
-## Run
-move to `$CINECA_SCRACTH` and create a directory `MYDIR` there
-then create a file `job.sh` with the following lines 
+## Run WarpX
+To run a WarpX simulation follow these steps:
+* Create a directory `$MYDIR` in your scratch.
+* Put in this directory a valid `input.txt`. 
+* Be sure to have the `WarpX` directory and the `warpx.profile` file in your `$HOME`, and to have successfully compiled Warpx.
+* Prepare your job script `job.sh` and submit it with the command `sbatch job.sh`.
 ```bash
 #!/bin/bash
 #SBATCH --time=04:00:00
@@ -122,158 +228,7 @@ source $HOME/myenv/bin/activate
 pip install openpmd-api
 ```
 
-# Smilei
-## Build
-download the source code in your `$HOME`
-```bash
-git clone https://github.com/SmileiPIC/Smilei.git smilei
-```
 
-create a `smilei.profile` file in your `$HOME` with the following lines
-```bash
-module purge 
-module load intel/oneapi-2021--binary
-module load intelmpi/oneapi-2021--binary
-module load libszip/2.1.1--gcc--10.2.0
-module load zlib/1.2.11--gcc--10.2.0
-module load hdf5/1.10.7--intelmpi--oneapi-2021--binary
-module load anaconda3/2020.07--gcc--8.3.1
-export PYTHONEXE=python3
-export HDF5_ROOT_DIR=/cineca/prod/opt/libraries/hdf5/1.10.7/intelmpi--oneapi-2021--binary/
-export SMILEICXX=mpiicpc
-```
-versione che usiamo ora 
-
-```bash
-module purge
-module load profile/global
-module load anaconda3/2020.07--gcc--8.3.1
-module load intel/oneapi-2021--binary
-module load intelmpi/oneapi-2021--binary
-module load libszip/2.1.1--gcc--10.2.0
-module load zlib/1.2.11--gcc--10.2.0
-module load hdf5/1.10.7--intelmpi--oneapi-2021--binary
-module load boost/1.76.0--intelmpi--oneapi-2021--binary
-export SMILEICXX=mpiicpc
-export HDF5_ROOT=/cineca/prod/opt/libraries/hdf5/1.10.7/intelmpi--oneapi-2021--binary
-export BOOST_ROOT=/cineca/prod/opt/libraries/boost/1.76.0/intelmpi--oneapi-2021--binary/
-export CXXFLAGS="-xCOMMON-AVX512 -ip -inline-factor=1000 -D__INTEL_CASCADELAKE_6248 -qopt-zmm-usage=high -fno-alias"
-```
-
-and source it
-```bash
-source $HOME/smilei.profile
-``` 
-
-move to the right directory
-```bash
-cd smilei
-``` 
-
-compile 
-```bash
-make -j 8
-```
-now we use 
-```bash
-make -j 16 config=omptasks
-```
-
-if successful, you'll find the executable `smilei` in the current directory 
-another executable `smilei_test` is generated to be run in test mode (e.g. check that the input file is ok)
-
-## Run
-
-prepare your job script `job.sh` and then submit it with `sbatch job.sh`
-
-here is an example of what `job.sh` could contain if you want to run on the serial partition on 4 cores with 4 MPI tasks and 1 OMP thread per task 
-```bash
-#!/bin/bash
-#SBATCH --time=04:00:00
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=4
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=31200MB 
-#SBATCH -p g100_all_serial
-#SBATCH --job-name=job_smilei
-#SBATCH --err=smilei.err
-#SBATCH --out=smilei.out
-#SBATCH --account=pMI21_EneDa_1
-#SBATCH --mail-type=ALL
-#SBATCH --mail-user=mymail@mymail.com
-
-cd $CINECA_SCRATCH/$MYDIR 
-
-source $HOME/smilei.profile
-
-export OMP_SCHEDULE=dynamic
-export OMP_NUM_THREADS=1
-
-srun --cpus-per-task $OMP_NUM_THREADS --cpu-bind=cores -m block:block $HOME/smilei/smilei input.py > output.txt
-```
-
-here is an example of what `job.sh` could contain if you want to run on the serial partition on 4 cores with 1 MPI task and 4 OMP thread per core  
-```bash
-#!/bin/bash
-#SBATCH --time=04:00:00
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=31200MB 
-#SBATCH -p g100_all_serial
-#SBATCH --job-name=job_smilei
-#SBATCH --err=smilei.err
-#SBATCH --out=smilei.out
-#SBATCH --account=pMI21_EneDa_1
-#SBATCH --qos=noQOS
-#SBATCH --mail-type=ALL
-#SBATCH --mail-user=mymail@mymail.com
-
-cd $CINECA_SCRATCH/$MYDIR 
-
-source $HOME/smilei.profile
-
-export OMP_SCHEDULE=dynamic
-export OMP_NUM_THREADS=4
-
-srun --cpus-per-task $OMP_NUM_THREADS --cpu-bind=cores -m block:block $HOME/smilei/smilei input.py > output.txt
-```
-
-
-here it is assumed that: 
-* you have created a directory `$MYDIR` in your scratch 
-* in this directory you have created a valid `input.py` 
-* you have the `smilei` directory and the `smilei.profile` file in your `$HOME`
-* you have successfully compiled smilei in `$HOME/smilei/`
-
-here are some tips for the parallelization from the smilei documentation: 
-https://smileipic.github.io/Smilei/Understand/parallelization.html#practical-setup
-
-:warning: warning: performances are extremely sensitive to the number of patches you use (which has to be a power of 2 in each direction) &rarr; you may have to redefine the number of cells in your simulation to optimize the number of patches you can use (often, the more the better)
-
-## Post-process
-load `smilei.profile` and your python environment, then move to the source directory
-```bash
-source $HOME/smilei.profile
-source $HOME/myenv/bin/activate
-cd $HOME/smilei
-```
-
-build the post-processing python package `happi`
-```bash
-make happi
-```
-a message like this should appear
-```bash
-Installing /g100/home/userexternal/<username>/.local/lib/python3.8/site-packages/smilei.pth
-```
-
-copy the smilei.pth path in the correct directory of your python environment 
-```bash
-cp /g100/home/userexternal/<username>/.local/lib/python3.8/site-packages/smilei.pth $HOME/myenv/lib/python3.8/site-packages
-```
-
-now you should be able to `import happi` in a python shell or script &rarr; you can use your plot files to post-process your smilei data as you would do on your computer (provided that you source your python environment first)
 
 # EPOCH
 ## Build
