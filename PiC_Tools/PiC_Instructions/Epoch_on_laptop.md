@@ -1,6 +1,6 @@
 # Instructions for Epoch on laptop
 
-## *WARNING!*
+## :warning: *WARNING!*
   
 **Before starting the installation of Smilei you MUST follow the instructions in `Laptop_Setup.md`**
 
