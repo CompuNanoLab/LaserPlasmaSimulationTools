@@ -209,7 +209,7 @@ cd $CINECA_SCRATCH/$MYDIR
 source $HOME/warpx.profile
 export OMP_SCHEDULE=dynamic
 export OMP_NUM_THREADS=1
-srun --cpu-bind=cores $HOME/WarpX/build/bin/warpx.2d.MPI.OMP.DP.PDP.OPMD.EB.QED.GENQEDTABLES input.txt > output.txt
+srun --cpu-bind=cores $HOME/WarpX/build_omp/bin/warpx.2d.MPI.OMP.DP.PDP.OPMD.EB.QED.GENQEDTABLES input.txt > output.txt
 ```
 
 ### Install WarpX post-processing tools
