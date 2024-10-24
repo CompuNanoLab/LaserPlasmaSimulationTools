@@ -1,12 +1,12 @@
-# Cineca High Perforance Coputing systems
+# Cineca High-Performance Computing systems
 
-High Perforance Coputing (HPC) systems available at Cineca (e.g. Galileo100 and Leonardo) are Linux-based machines that you can use to perform PiC simulations strongly exploiting parallelization on several CPUs or GPUs. These clusters should be used for those problems fo which the computational resources of your laptop are no more enough. Below you can find essential notes on the use of these machines, but please refer to the following links for detailed and upadate instructions.
+High-Performance Computing (HPC) systems available at Cineca (e.g. Galileo100 and Leonardo) are Linux-based machines that you can use to perform PiC simulations strongly exploiting parallelization on several CPUs or GPUs. These clusters should be used for those problems for which the computational resources of your laptop are no more enough. Below you can find essential notes on the use of these machines, but please refer to the following links for detailed and updated instructions.
 * HPC user guide: https://wiki.u-gov.it/confluence/display/SCAIUS/HPC+User+Guide
 * Galileo100: https://wiki.u-gov.it/confluence/display/SCAIUS/UG3.3%3A+GALILEO100+UserGuide
 * Leonardo: https://wiki.u-gov.it/confluence/display/SCAIUS/UG3.2%3A+LEONARDO+UserGuide
 
 ## Access
-Create a new user here https://userdb.hpc.cineca.it/ and ask to be added to some project on an HPC machine. You can also apply for your own project, called ISCRA, to get coputational resources and a budget to use on these machines.
+Create a new user here https://userdb.hpc.cineca.it/ and ask to be added to some project on an HPC machine. You can also apply for your project, called ISCRA, to get computational resources and a budget to use on these machines.
 
 Follow the guidelines here https://wiki.u-gov.it/confluence/display/SCAIUS/How+to+connect+via+2FA to enable the double authentication, now necessary to access the machines. Once you are authenticated you can connect to the machine of your choice with these commands:
 
@@ -39,7 +39,7 @@ These are the main directories that you will use on a Cineca machine:
 * User-specific.
 * Private, but you can change the permissions of this directory (at your own risk) if you want to easily exchange files with another user by being able to read and browse their scratch. By default the permissions of your directory in the scratch should be `drwx------` (this is the output of  `ls -ld`). You can change this to `drwxr-xr-x`  with `chmod`:
 `chmod 755 <your_directory>`: now everybody should be able to read and browse `<your_directory>`.
-* Temporary: there is a periodic (daily) cleaning procedure. Files that have remained untouched for more than 40 days are removed and a file in your home is generated listing all the deleted files on a given day (if any). To avoid losing your files unintentionally, you can touch all files and subdirectories with this command:`find . -exec touch {} \;` (this however is frowned upon!)
+* Temporary: there is a periodic (daily) cleaning procedure. Files that have remained untouched for more than 40 days are removed and a file in your home is generated listing all the deleted files on a given day (if any). To avoid losing your files unintentionally, you can touch all files and subdirectories with this command: `find . -exec touch {} \;` (this however is frowned upon!)
 * No disk quota but a temporary quota of 20 TB could be imposed if the cluster reaches high levels of occupancy. 
 
 ### `$WORK`
@@ -86,7 +86,7 @@ modmap -m <appl>................find available <appl>
 If you need some software that is not available via the module command, you should try installing it from source or with spack (https://spack.readthedocs.io/en/latest/), which is installed at Cineca and you can use it after loading it: `module load spack`.
 
 ## File transfer
-To transfer files from a supercomputer to your local computer or viceversa you can use `scp` or `rsync`. To copy from a remote supercomputer to your local laptop type this command on your laptop terminal: 
+To transfer files from a supercomputer to your local computer or vice versa you can use `scp` or `rsync`. To copy from a remote supercomputer to your local laptop type this command on your laptop terminal: 
 ```bash
 scp <username>@login.g100.cineca.it:<path_2_file_u_want_2_download> <path_to_local_directory>
 ```
@@ -104,7 +104,7 @@ rsync --update --progress <path_2_file_u_want_2_upload> <username>@login.g100.ci
 ```
 
 ## Run jobs
-To run your simulations (or also Python scripts if needed) you have to submit jobs to the scheduler, which is SLURM (https://slurm.schedmd.com/documentation.html) on Cineca systems. The scheduler will put your job in queue, assign the computational resources required, launch it, stop it when it reaches the walltime, etc.
+To run your simulations (or also Python scripts if needed) you have to submit jobs to the scheduler, which is SLURM (https://slurm.schedmd.com/documentation.html) on Cineca systems. The scheduler will put your job in a queue, assign the computational resources required, launch it, stop it when it reaches the wall time, etc.
 You can use both batch jobs (recommended) or interactive jobs running on an open terminal on the machine. 
 
 ### Batch jobs 
@@ -125,7 +125,7 @@ To submit a job from batch, you need to create a script `job.sh` like the follow
 #SBATCH --out=myjob.out # standard output
 #SBATCH --account=<project_name> # account / budget
 #SBATCH --mail-type=ALL # type of alerts
-#SBATCH --mail-user=mymail@mymail.com # email adress
+#SBATCH --mail-user=mymail@mymail.com # email address
 
 # move to the directory where you want to run the code
 cd /g100_scratch/userexternal/<path_details>/epoch
@@ -166,20 +166,20 @@ sacct
 ```
 
 ### Interactive jobs
-You can also ask for computational resources interactively: this means that you will be able to type in commands directlyon the open terminal on the machine. For example, you can launch an interactive job with this command:
+You can also ask for computational resources interactively: this means that you will be able to type in commands directly on the open terminal on the machine. For example, you can launch an interactive job with this command:
 ```bash
 srun -n1 --time=04:00:00 -A <project_name> -p g100_all_serial --ntasks-per-node=1 --cpus-per-task=1 --pty /bin/bash
 ```
 Please be aware that when you close your terminal session, the allocation will end. 
 
 ## Python environment
-To use Pythonn on HPC machines the best option is to create your own python environment in your $HOME:
+To use Python on HPC machines the best option is to create your own Python environment in your $HOME:
 ```bash
 module load python
 python3 -m venv myenv
 source $HOME/myenv/bin/activate
 ```
-Then, check that you can use your python environment with:
+Then, check that you can use your Python environment with:
 ```bash
 which python
 which pip
