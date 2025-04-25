@@ -73,7 +73,7 @@ Here is an example of what `job.sh` could contain:
 cd /leonardo_scratch/large/userexternal/your_username/path/for/the/simulation
 
 source $HOME/smileinew.profile
-srun $HOME/Smilei/smilei input.py > output.txt
+srun $HOME/Smilei/build/smilei input.py > output.txt
 ```
 Here are some tips for parallelization from the Smilei documentation: https://smileipic.github.io/Smilei/Understand/parallelization.html#practical-setup
 
