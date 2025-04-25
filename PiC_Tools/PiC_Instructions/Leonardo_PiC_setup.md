@@ -9,7 +9,19 @@ https://smileipic.github.io/Smilei
 ### Smilei dependencies setup
 Create a `smilei.profile` file in your `$HOME` containing the following lines (TO UPDATE):
 ```bash
-TO DO
+module purge
+module load python
+module load profile/archive
+module load nvhpc/23.1
+module load zlib/1.2.13--gcc--11.3.0
+module load openmpi/4.1.4--nvhpc--23.1-cuda-11.8
+module load hdf5/1.12.2--openmpi--4.1.4--nvhpc--23.1
+module load boost/1.80.0--openmpi--4.1.4--nvhpc--23.1
+
+export SMILEICXX_DEPS=g++
+export CXXFLAGS="-w -gpu=cc80 -acc -std=c++14  -lcurand -cudalib=curand -Minfo=accel -D__GCC_ATOMIC_TEST_AND_SET_TRUEVAL=1"
+export GPU_COMPILER_FLAGS="-O3 --std c++14 -arch=sm_80 -expt-relaxed-constexpr"
+export LDFLAGS="-gpu=cc80 -acc -cuda -std=c++14 -cudalib=curand -lcudart -lcurand -lacccuda"
 ```
 and source it:
 ```bash
@@ -27,7 +39,7 @@ cd Smilei
 ``` 
 and compile:
 ```bash
-make -j 16 config=...
+make -j 16 config="gpu_nvidia"
 ```
 If it compiles successfully, you will find the executable `smilei` in the current directory. Another executable `smilei_test` is generated to be run in test mode (e.g. use it to check that the input file is ok).
 
@@ -39,7 +51,29 @@ To run a Smilei simulation follow these steps:
 * Prepare your job script `job.sh` and submit it with the command `sbatch job.sh`.
 Here is an example of what `job.sh` could contain:
 ```bash
-TO DO
+#!/bin/bash
+#SBATCH --time=08:00:00
+#SBATCH --nodes=128
+#SBATCH --ntasks-per-node=4
+#SBATCH --ntasks-per-socket=4
+#SBATCH --cpus-per-task=8
+#SBATCH --gpus-per-node=4
+#SBATCH --gpus-per-task=1
+#SBATCH --mem=494000
+#SBATCH -p boost_usr_prod
+#SBATCH --qos=boost_qos_bprod
+#SBATCH --job-name=jobName
+#SBATCH --gres=gpu:4
+#SBATCH --err=smilei.err
+#SBATCH --out=smilei.out
+#SBATCH --account=ProjectName
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=your.mail@polimi.it
+
+cd /leonardo_scratch/large/userexternal/your_username/path/for/the/simulation
+
+source $HOME/smileinew.profile
+srun $HOME/Smilei/smilei input.py > output.txt
 ```
 Here are some tips for parallelization from the Smilei documentation: https://smileipic.github.io/Smilei/Understand/parallelization.html#practical-setup
 
@@ -55,8 +89,14 @@ cd $HOME/Smilei
 Build the post-processing Python package `happi`:
 ```bash
 make happi
+cd $HOME/
 ```
-
+A message like `Installing leonardo/home/userexternal/your_username/.local/lib/python3.11/site-packages/smilei.pth` should be shown at screen. Copy the path and follow the next steps:
+```
+bash
+cd $HOME/myenv/lib/python3.11/site-packages/
+cp /leonardo/home/userexternal/your_username/.local/lib/python3.11/site-packages/smilei.pth .
+```
 ## WarpX on Leonardo
 
 ### WarpX Documentation
