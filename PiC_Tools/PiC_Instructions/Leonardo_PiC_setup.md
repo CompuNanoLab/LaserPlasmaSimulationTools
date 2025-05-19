@@ -11,6 +11,7 @@ Create a `smilei.profile` file in your `$HOME` containing the following lines (T
 ```bash
 module purge
 module load python
+source $HOME/myenv/bin/activate
 module load profile/archive
 module load nvhpc/23.1
 module load zlib/1.2.13--gcc--11.3.0
