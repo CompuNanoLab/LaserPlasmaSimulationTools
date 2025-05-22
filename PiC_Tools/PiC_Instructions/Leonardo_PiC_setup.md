@@ -19,6 +19,7 @@ module load openmpi/4.1.4--nvhpc--23.1-cuda-11.8
 module load hdf5/1.12.2--openmpi--4.1.4--nvhpc--23.1
 module load boost/1.80.0--openmpi--4.1.4--nvhpc--23.1
 
+export GPU_COMPILER=nvcc
 export SMILEICXX_DEPS=g++
 export CXXFLAGS="-w -gpu=cc80 -acc -std=c++14  -lcurand -cudalib=curand -Minfo=accel -D__GCC_ATOMIC_TEST_AND_SET_TRUEVAL=1"
 export GPU_COMPILER_FLAGS="-O3 --std c++14 -arch=sm_80 -expt-relaxed-constexpr"
