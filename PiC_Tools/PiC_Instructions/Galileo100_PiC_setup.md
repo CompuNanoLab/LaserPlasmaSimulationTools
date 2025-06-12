@@ -123,16 +123,46 @@ Now you should be able to `import happi` in a Python shell or script and you can
 https://ecp-warpx.github.io/  and https://warpx.readthedocs.io/en/latest/
 
 ### WarpX dependencies setup
+Before compiling WarpX the installation of ADIOS2 must be performed. To do so, you must create an `adios2.profile` file in your `$HOME` containing the following lines:
+```bash
+module purge
+
+module load gcc/10.2.0
+module load cmake/3.27.7
+module load profile/advanced
+module load openmpi/4.1.1--gcc--10.2.0-pmi-cuda-11.5.0
+module load zlib/1.2.11--gcc--10.2.0
+module load adios/1.13.1--openmpi--4.1.1--gcc--10.2.0-pmi
+module load boost/1.77.0--openmpi--4.1.1--gcc--10.2.0-pmi
+module load hdf5/1.10.7--openmpi--4.1.1--gcc--10.2.0-pmi
+module load libszip/2.1.1--gcc--10.2.0
+```
+Source it and install ADIOS2 in this way:
+```bash
+source ~/adios2.profile
+git clone https://github.com/ornladios/ADIOS2.git ADIOS2
+cd ADIOS2
+mkdir ADIOS2-build && cd ADIOS2-build
+cmake ../ADIOS2 -DADIOS2_BUILD_EXAMPLES=ON
+make -j 16
+cmake ../ADIOS2 -DCMAKE_INSTALL_PREFIX=$HOME/ADIOS2-install
+make install
+```
+
 Create a `warpx.profile` file in your `$HOME` containing the following lines (TO UPDATE):
 ```bash
 module purge
+
 module load gcc/10.2.0
-module load cmake/3.21.4
+module load cmake/3.27.7
 module load profile/advanced
-module load openmpi/4.1.1--gcc--10.2.0-cuda--11.1.0
+module load openmpi/4.1.1--gcc--10.2.0-pmi-cuda-11.5.0
 module load zlib/1.2.11--gcc--10.2.0
-module load adios/1.13.1--openmpi--4.1.1--gcc--10.2.0-cuda--11.1.0
-module load boost/1.74.0--openmpi--4.1.1--gcc--10.2.0-cuda--11.1.0
+module load adios/1.13.1--openmpi--4.1.1--gcc--10.2.0-pmi
+module load boost/1.77.0--openmpi--4.1.1--gcc--10.2.0-pmi
+module load hdf5/1.10.7--openmpi--4.1.1--gcc--10.2.0-pmi
+
+export ADIOS2_DIR=$HOME/ADIOS2-install
 ```
 and source it:
 ```bash
@@ -145,7 +175,7 @@ git clone https://github.com/ECP-WarpX/WarpX.git
 ```
 Move inside the directory:
 ```bash
-cd WarpX
+cd warpx
 ``` 
 Configure your build:
 ```bash
@@ -159,57 +189,36 @@ To save the changes press `c` and `g`. Then build with the following command:
 ```bash
 cmake --build build_omp -j 16
 ```
-If it compiles successfully, you will find the executables in `WarpX/build_omp/bin/`. If you have problems with the pre-installed adios, you may want to try and install it from source by following the instructions here: https://adios2.readthedocs.io/en/latest/setting_up/setting_up.html#install-from-source. 
-Create a  `warpx.profile` file working with ADIOS2 (TO UPDATE):
-```bash
-module purge
-module load profile/global
-module load cmake/3.21.4
-module load gcc/10.2.0
-module load openmpi/4.1.1--gcc--10.2.0-cuda-11.5.0
-module load boost/1.77.0--openmpi--4.1.1--gcc--10.2.0
-module load zlib/1.2.11--gcc--10.2.0
-export ADIOS2_DIR=$HOME/ADIOS2/install/
-```
-Source it and install ADIOS2 in this way:
-```bash
-source ~/warpx.profile
-git clone https://github.com/ornladios/ADIOS2.git ADIOS2
-cd ADIOS2
-mkdir build
-cd build
-cmake -DCMAKE_INSTALL_PREFIX=$HOME/ADIOS2/install ..
-make -j 32
-make install
-```
-Then follow the instructions above to install WarpX.
+If it compiles successfully, you will find the executables in `WarpX/build_omp/bin/`. 
 
 ### Run WarpX
 To run a WarpX simulation follow these steps:
 * Create a directory `$MYDIR` in your scratch.
 * Put in this directory a valid `input.txt`. 
 * Be sure to have the `WarpX` directory and the `warpx.profile` file in your `$HOME`, and to have successfully compiled Warpx.
-* Prepare your job script `job.sh` and submit it with the command `sbatch job.sh`. Here is an example of what `job.sh` could contain:
+* Prepare your job script `job.sh` and submit it with the command `sbatch job.sh`. Here is an example of what `job` for a 2D simulation could contain:
 ```bash
 #!/bin/bash
-#SBATCH --time=04:00:00
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=4
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=31200MB 
-#SBATCH -p g100_all_serial
-#SBATCH --job-name=job_warpx
-#SBATCH --err=warpx.err
-#SBATCH --out=warpx.out
-#SBATCH --account=<project_name>
+#SBATCH --time=05:00:00
+#SBATCH --nodes=3
+#SBATCH --ntasks-per-node=2
+#SBATCH --cpus-per-task=24
+#SBATCH --ntasks-per-socket=1
+#SBATCH --mem=375300MB
+#SBATCH -p g100_usr_prod
+#SBATCH --job-name=warpx
+#SBATCH --err=job.err
+#SBATCH --out=job.out
+#SBATCH --account=pMI24_eneDa
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=mymail@mymail.com
-export MYDIR=path/to/your/simulation/directory
-cd $CINECA_SCRATCH/$MYDIR
+#SBATCH --mail-user=your.email@address.state
+
 source $HOME/warpx.profile
+cd $CINECA_SCRATCH/Path/to/Your/Simulation
+
 export OMP_SCHEDULE=dynamic
-export OMP_NUM_THREADS=1
-srun --cpu-bind=cores $HOME/WarpX/build_omp/bin/warpx.2d.MPI.OMP.DP.PDP.OPMD.EB.QED.GENQEDTABLES input.txt > output.txt
+export OMP_NUM_THREADS=24
+srun --cpu-bind=cores $HOME/warpx/build_omp/bin/warpx.2d.MPI.OMP.DP.PDP.OPMD.EB.QED.GENQEDTABLES input warpx.numprocs=1 6 > output.txt
 ```
 
 ### Install WarpX post-processing tools
@@ -220,7 +229,7 @@ pip install openpmd-api
 ```
 
 ## EPOCH on Galileo100
-
+(TO UPDATE)
 ### Epoch Documentation
 https://epochpic.github.io/
 
