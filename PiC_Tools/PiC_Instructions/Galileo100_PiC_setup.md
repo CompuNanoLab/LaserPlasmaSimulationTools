@@ -7,7 +7,7 @@ Before installing PiC codes on Galileo100 read `Cineca_HPC_systems_setup.md`.
 https://smileipic.github.io/Smilei
 
 ### Smilei dependencies setup
-Create a `smilei.profile` file in your `$HOME` containing the following lines (TO UPDATE):
+Create a `smilei.profile` file in your `$HOME` containing the following lines:
 ```bash
 module purge
 module load profile/global
@@ -22,6 +22,7 @@ export SMILEICXX=mpiicpc
 export HDF5_ROOT=/cineca/prod/opt/libraries/hdf5/1.10.7/intelmpi--oneapi-2021--binary
 export BOOST_ROOT=/cineca/prod/opt/libraries/boost/1.76.0/intelmpi--oneapi-2021--binary/
 export CXXFLAGS="-xCOMMON-AVX512 -ip -inline-factor=1000 -D__INTEL_CASCADELAKE_6248 -qopt-zmm-usage=high -fno-alias"
+export PYTHONEXE=python3
 ```
 and source it:
 ```bash
